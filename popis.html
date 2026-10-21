@@ -1,0 +1,877 @@
+<!-- CSS pro popisy L.C.P. produktů + Časová osa z průvodce -->
+<style>
+    <!--
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap');
+
+    /* Hlavní kontejner popisu - optimalizováno pro 9 sloupců Shoptet šablony */
+    .lcp-box {
+        padding: 1.5em 0;
+        font-family: Arial, sans-serif;
+        color: #1a1a1a;
+        line-height: 1.8;
+        max-width: 100%;
+        background: #ffffff;
+        box-sizing: border-box;
+    }
+
+    /* Časová osa top label */
+    .lcp-routine-label {
+        font-family: 'Montserrat', sans-serif !important;
+        font-size: 11px !important;
+        font-weight: 700 !important;
+        text-transform: uppercase !important;
+        letter-spacing: 0.1em !important;
+        color: #eb6c7d !important;
+        margin: 0 0 10px 0 !important;
+        text-align: left !important;
+        display: block !important;
+    }
+
+    /* Editorial Grid Layout - vyladěno pro 9/12 šířku Shoptetu */
+    .lcp-editorial-grid {
+        display: grid;
+        grid-template-columns: 1.25fr 1fr;
+        gap: 2.2em;
+        margin-top: 1.8em;
+        align-items: start;
+    }
+
+    /* Levý hlavní obsahový sloupec */
+    .lcp-editorial-main {
+        display: flex;
+        flex-direction: column;
+        gap: 2.2em;
+    }
+
+    /* Pravý postranní sloupec (Specifikace, INCI, Pro Boxy) */
+    .lcp-editorial-sidebar {
+        display: flex;
+        flex-direction: column;
+        gap: 1.8em;
+        background: #faf7f4;
+        padding: 1.6em 1.8em;
+        border-radius: 12px;
+        border-top: 3px solid #d8c9b6;
+        box-sizing: border-box;
+    }
+
+    /* Logo a titulkový blok */
+    .lcp-header {
+        margin-bottom: 0.5em;
+    }
+
+    .lcp-series-logo {
+        display: block;
+        max-width: 75px;
+        height: auto;
+        margin-bottom: 1em;
+    }
+
+    .lcp-box h2 {
+        font-family: 'Montserrat', Arial, sans-serif !important;
+        font-size: 18pt !important;
+        font-weight: 600;
+        letter-spacing: 0.5px;
+        margin: 0;
+        color: #1a1a1a;
+        line-height: 1.35;
+    }
+
+    /* Perex - Editorial Quote s dekorativní uvozovkou */
+    .lcp-lead-p {
+        font-size: 12.5pt;
+        font-style: italic;
+        color: #2c2c2c;
+        line-height: 1.8;
+        padding-left: 1.2em;
+        border-left: 3px solid #d8c9b6;
+        margin: 0;
+        position: relative;
+    }
+
+    .lcp-box p {
+        font-size: 11.5pt;
+    }
+
+    /* Sekční titulky pro editorial */
+    .lcp-editorial-title {
+        font-family: 'Montserrat', sans-serif;
+        font-size: 9.5pt;
+        font-weight: 700;
+        letter-spacing: 1.5px;
+        text-transform: uppercase;
+        color: #8a7a6a;
+        margin-bottom: 1em;
+        display: flex;
+        align-items: center;
+        gap: 0.8em;
+    }
+
+    .lcp-editorial-title::after {
+        content: '';
+        flex: 1;
+        height: 1px;
+        background: #e8e2d8;
+    }
+
+    /* Aktivní složky - Editorial číslovaný seznam */
+    .lcp-ingredients-editorial {
+        list-style: none !important;
+        padding-left: 0 !important;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 1.2em;
+    }
+
+    .lcp-ingredients-editorial li {
+        display: grid;
+        grid-template-columns: auto 1fr;
+        gap: 1.1em;
+        font-size: 11.5pt;
+        line-height: 1.7;
+        padding-bottom: 1.1em;
+        border-bottom: 1px solid #f2ede7;
+    }
+
+    .lcp-ingredients-editorial li:last-child {
+        border-bottom: none;
+        padding-bottom: 0;
+    }
+
+    .lcp-num {
+        font-family: 'Montserrat', sans-serif;
+        font-size: 13pt;
+        font-weight: 700;
+        color: #d8c9b6;
+        line-height: 1;
+        padding-top: 2px;
+    }
+
+    /* Použití - Editorial text blok */
+    .lcp-usage-text {
+        font-size: 11.5pt;
+        line-height: 1.85;
+        color: #2b2b2b;
+        margin: 0;
+    }
+
+    /* Sidebar - Další informace vertical specs list */
+    .lcp-sidebar-specs {
+        list-style: none !important;
+        padding-left: 0 !important;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 0.9em;
+    }
+
+    .lcp-sidebar-specs li {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        padding-bottom: 0.7em;
+        border-bottom: 1px solid #ede7df;
+    }
+
+    .lcp-sidebar-specs li:last-child {
+        border-bottom: none;
+        padding-bottom: 0;
+    }
+
+    .lcp-spec-label {
+        font-family: 'Montserrat', sans-serif;
+        font-size: 8.5pt;
+        color: #777;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        font-weight: 600;
+    }
+
+    .lcp-spec-value {
+        font-size: 10.5pt;
+        font-weight: 700;
+        color: #1a1a1a;
+        text-align: right;
+    }
+
+    /* INCI v sidebaru */
+    .lcp-inci-header-flex {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 0.8em;
+    }
+
+    .lcp-inci-box {
+        font-size: 8.5pt;
+        line-height: 1.65;
+        color: #444;
+        background: #ffffff;
+        padding: 1em;
+        border-radius: 8px;
+        border: 1px solid #ede7df;
+        word-break: break-word;
+    }
+
+    .lcp-copy-btn {
+        background: #ffffff;
+        border: 1px solid #d8c9b6;
+        color: #7a6b5b;
+        font-family: 'Montserrat', sans-serif;
+        font-size: 7.5pt;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        padding: 0.35em 0.75em;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+    }
+
+    .lcp-copy-btn:hover {
+        background: #eb6c7d;
+        border-color: #eb6c7d;
+        color: #ffffff;
+    }
+
+    /* Made in France badge */
+    .lcp-made-fr {
+        font-family: 'Montserrat', sans-serif;
+        font-size: 8.5pt;
+        font-weight: 700;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        color: #1a1a1a;
+        padding-top: 0.7em;
+        border-top: 1px solid #d8c9b6;
+        display: inline-block;
+    }
+
+    /* Pro Box & Warning */
+    .lcp-pro-box {
+        background-color: #eaf7ff;
+        border-left: 4px solid #3a91d8;
+        padding: 1em 1.2em;
+        border-radius: 6px;
+        color: #0d3a5c;
+        font-size: 10pt;
+    }
+
+    .lcp-pro-box p {
+        margin: 0.3em 0 0 0;
+        font-size: 10pt;
+    }
+
+    .lcp-warning {
+        background-color: #fff4f4;
+        border-left: 4px solid #c62828;
+        padding: 1em 1.2em;
+        border-radius: 6px;
+        color: #8b0000;
+        font-size: 10pt;
+    }
+
+    /* BRAND KONTAKT - ELEGANTNÍ LUXUSNÍ VIZITKA */
+    .lcp-brand-card {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1.5em;
+        background: linear-gradient(135deg, #faf7f4 0%, #ffffff 100%);
+        border: 1px solid #ebd9c8;
+        border-left: 4px solid #d8c9b6;
+        border-radius: 12px;
+        padding: 1.2em 1.8em;
+        margin-top: 2.5em;
+        box-sizing: border-box;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
+    }
+
+    .lcp-brand-person {
+        display: flex;
+        align-items: center;
+        gap: 1.2em;
+    }
+
+    .lcp-brand-avatar {
+        width: 65px;
+        height: 65px;
+        object-fit: cover;
+        border-radius: 50%;
+        border: 2px solid #d8c9b6;
+        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+        flex-shrink: 0;
+    }
+
+    .lcp-brand-name {
+        font-family: 'Montserrat', sans-serif;
+        font-size: 11.5pt;
+        font-weight: 700;
+        color: #1a1a1a;
+        margin-bottom: 2px;
+    }
+
+    .lcp-brand-role {
+        font-size: 9.5pt;
+        color: #666;
+    }
+
+    .lcp-brand-details {
+        display: flex;
+        align-items: center;
+        gap: 0.8em;
+        flex-wrap: wrap;
+    }
+
+    .lcp-contact-pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4em;
+        background: #ffffff;
+        border: 1px solid #e2d7c9;
+        padding: 0.45em 0.85em;
+        border-radius: 6px;
+        font-size: 9pt;
+        color: #2b2b2b !important;
+        text-decoration: none !important;
+        transition: all 0.2s ease;
+    }
+
+    .lcp-contact-pill:hover {
+        border-color: #d8c9b6;
+        background: #faf7f4;
+        transform: translateY(-1px);
+        box-shadow: 0 3px 8px rgba(0, 0, 0, 0.04);
+    }
+
+    .lcp-pill-label {
+        font-family: 'Montserrat', sans-serif;
+        font-weight: 700;
+        color: #8a7a6a;
+        font-size: 8.5pt;
+    }
+
+    .lcp-pill-val {
+        color: #1a1a1a;
+        font-weight: 500;
+    }
+
+    .lcp-box a {
+        color: #3a91d8;
+        text-decoration: none;
+    }
+
+    .lcp-box a:hover {
+        text-decoration: underline;
+    }
+
+    /* CSS pro interaktivního průvodce z pruvodce.html */
+    #lcp-routine-container.lcp-routine-wrapper {
+        position: relative;
+        background: transparent !important;
+        border: none !important;
+        border-radius: 0 !important;
+        padding: 10px 15px 20px 15px !important;
+        max-width: 100% !important;
+        margin: 0 auto 24px auto !important;
+        box-shadow: none !important;
+        overflow-x: auto;
+        overflow-y: hidden;
+        box-sizing: border-box;
+
+        /* Custom Scrollbar pro úzké obrazovky */
+        scrollbar-width: thin;
+        scrollbar-color: #fcdade transparent;
+    }
+
+    #lcp-routine-container.lcp-routine-wrapper::-webkit-scrollbar {
+        height: 5px;
+    }
+
+    #lcp-routine-container.lcp-routine-wrapper::-webkit-scrollbar-track {
+        background: transparent !important;
+        border-radius: 10px;
+    }
+
+    #lcp-routine-container.lcp-routine-wrapper::-webkit-scrollbar-thumb {
+        background: #fcdade;
+        border-radius: 10px;
+        transition: background 0.3s ease;
+    }
+
+    #lcp-routine-container.lcp-routine-wrapper::-webkit-scrollbar-thumb:hover {
+        background: #eb6c7d;
+    }
+
+    #lcp-routine-container .lcp-routine-inner {
+        position: relative !important;
+        width: 100% !important;
+        min-width: 0 !important;
+        display: block !important;
+    }
+
+    /* Osa rutiny */
+    #lcp-routine-container .lcp-routine-line {
+        position: absolute !important;
+        left: 4.545% !important;
+        right: 4.545% !important;
+        bottom: 11px !important;
+        height: 4px !important;
+        background: #fcdade !important;
+        border-radius: 20px !important;
+        z-index: 1 !important;
+    }
+
+    #lcp-routine-container .lcp-routine-line-fill {
+        position: absolute !important;
+        left: 0 !important;
+        top: 0 !important;
+        bottom: 0 !important;
+        background: linear-gradient(90deg, #f39aa5 0%, #eb6c7d 100%) !important;
+        border-radius: 20px !important;
+        width: 44.44% !important;
+        transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    }
+
+    #lcp-routine-container .lcp-routine-steps {
+        position: relative;
+        z-index: 2;
+        display: grid;
+        grid-template-columns: repeat(var(--steps-count, 10), 1fr);
+        align-items: end;
+        width: 100%;
+    }
+
+    /* Jednotlivý krok */
+    #lcp-routine-container .lcp-step {
+        position: relative !important;
+        text-align: center !important;
+        color: #2b2b2b !important;
+        font-family: 'Montserrat', sans-serif !important;
+        font-size: 11px !important;
+        font-weight: 500 !important;
+        line-height: 1.3 !important;
+        min-height: 80px !important;
+        min-width: 0 !important;
+        padding: 10px 1px 30px !important;
+        box-sizing: border-box !important;
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: center !important;
+        align-items: center !important;
+        cursor: pointer !important;
+        transition: transform 0.3s ease !important;
+        animation: fadeInStep 0.6s ease both;
+    }
+
+    #lcp-routine-container .lcp-step:hover {
+        transform: translateY(-2px) !important;
+    }
+
+    /* Vnitřní odkaz v kroku */
+    #lcp-routine-container .lcp-step a {
+        text-decoration: none !important;
+        color: inherit !important;
+        display: block !important;
+        width: 100% !important;
+        height: 100% !important;
+        position: relative !important;
+        z-index: 2 !important;
+        cursor: pointer !important;
+        font-size: 11px !important;
+    }
+
+    #lcp-routine-container .lcp-step span {
+        color: #4a4a4a !important;
+        transition: color 0.3s ease !important;
+        display: block !important;
+        font-size: 11px !important;
+    }
+
+    /* Kulička na ose */
+    #lcp-routine-container .lcp-dot {
+        width: 10px !important;
+        height: 10px !important;
+        background: #eb6c7d !important;
+        border: 3px solid #fffbfb !important;
+        border-radius: 50% !important;
+        box-sizing: content-box !important;
+        position: absolute !important;
+        bottom: 5px !important;
+        left: 0 !important;
+        right: 0 !important;
+        margin: 0 auto !important;
+        transition: width 0.25s cubic-bezier(0.34, 1.56, 0.64, 1),
+            height 0.25s cubic-bezier(0.34, 1.56, 0.64, 1),
+            bottom 0.25s cubic-bezier(0.34, 1.56, 0.64, 1),
+            background 0.25s ease,
+            border-color 0.25s ease,
+            box-shadow 0.25s ease !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        box-shadow: 0 1px 3px rgba(235, 108, 125, 0.1) !important;
+        z-index: 2 !important;
+    }
+
+    /* 1. STAV: Dokončené kroky */
+    #lcp-routine-container .lcp-step.lcp-completed span {
+        color: #555555 !important;
+        font-weight: 500 !important;
+    }
+
+    #lcp-routine-container .lcp-step.lcp-completed .lcp-dot {
+        background: #f5b3be !important;
+        border: 3px solid #fffbfb !important;
+        width: 14px !important;
+        height: 14px !important;
+        bottom: 3px !important;
+        box-shadow: 0 1px 3px rgba(245, 179, 190, 0.08) !important;
+    }
+
+    /* 2. STAV: Aktivní krok */
+    #lcp-routine-container .lcp-step.lcp-active {
+        transform: translateY(-2px) scale(1.03) !important;
+    }
+
+    #lcp-routine-container .lcp-step.lcp-active span {
+        font-weight: 700 !important;
+        color: #eb6c7d !important;
+    }
+
+    #lcp-routine-container .lcp-step.lcp-active .lcp-dot {
+        background: linear-gradient(135deg, #ff8a9a 0%, #eb6c7d 100%) !important;
+        border: 4px solid #fffbfb !important;
+        width: 20px !important;
+        height: 20px !important;
+        bottom: -1px !important;
+        animation: pulseDot 1.8s ease-in-out 0.3s infinite !important;
+        box-shadow: 0 4px 12px rgba(235, 108, 125, 0.35) !important;
+    }
+
+    /* 3. STAV: Budoucí kroky */
+    #lcp-routine-container .lcp-step.lcp-upcoming span {
+        color: #8a8a8a !important;
+        font-weight: 400 !important;
+    }
+
+    #lcp-routine-container .lcp-step.lcp-upcoming .lcp-dot {
+        background: #fcdade !important;
+        border: 3px solid #fffbfb !important;
+        width: 10px !important;
+        height: 10px !important;
+        bottom: 5px !important;
+    }
+
+    @keyframes fadeInStep {
+        from {
+            opacity: 0;
+            transform: translateY(4px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    @keyframes pulseDot {
+        0% {
+            transform: scale(1);
+            box-shadow: 0 0 0 0 rgba(235, 108, 125, 0.45);
+        }
+
+        50% {
+            transform: scale(1.15);
+            box-shadow: 0 0 0 4px rgba(235, 108, 125, 0.15);
+        }
+
+        100% {
+            transform: scale(1);
+            box-shadow: 0 0 0 0 rgba(235, 108, 125, 0);
+        }
+    }
+
+    /* Responsivní přechod pro 9 sloupců Shoptetu */
+    @media (max-width: 992px) {
+        .lcp-editorial-grid {
+            grid-template-columns: 1fr;
+            gap: 2.2em;
+        }
+
+        .lcp-editorial-sidebar {
+            padding: 1.5em;
+        }
+
+        .lcp-brand-card {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 1.2em;
+            padding: 1.2em;
+        }
+
+        .lcp-brand-details {
+            width: 100%;
+            flex-direction: column;
+            align-items: stretch;
+        }
+
+        .lcp-contact-pill {
+            justify-content: space-between;
+        }
+
+        #lcp-routine-container.lcp-routine-wrapper {
+            padding: 10px 5px 20px !important;
+        }
+
+        #lcp-routine-container .lcp-routine-inner {
+            min-width: max-content !important;
+        }
+
+        #lcp-routine-container .lcp-step {
+            min-height: 80px !important;
+            min-width: 70px !important;
+            padding: 10px 2px 30px !important;
+        }
+
+        #lcp-routine-container .lcp-step a,
+        #lcp-routine-container .lcp-step span {
+            font-size: 11px !important;
+        }
+    }
+    -->
+</style>
+
+<div class="lcp-box">
+    <!-- Štítek s kontextem -->
+    <div class="lcp-routine-label">Krok v kosmetické rutině:</div>
+    <!-- Časová osa z průvodce - 10 kroků -->
+    <div class="lcp-routine-wrapper" id="lcp-routine-container">
+        <div class="lcp-routine-inner">
+            <div class="lcp-routine-line">
+                <div class="lcp-routine-line-fill">&nbsp;</div>
+            </div>
+            <div class="lcp-routine-steps">
+                <!-- 1. Čištění a odličování pleti -->
+                <div class="lcp-step"><a href="/cisteni-a-odlicovani-pleti-lcp-paris/"
+                        data-secondary-href="https://www.depilujeme.cz/cisteni-a-odlicovani-pleti-lcp-paris-oligodermie/">
+                        <span>Odličování<br />pleti</span> </a>
+                    <div class="lcp-dot">&nbsp;</div>
+                </div>
+                <!-- 2. Peeling -->
+                <div class="lcp-step"><a href="/peeling-lcp-paris/"
+                        data-secondary-href="https://www.depilujeme.cz/peeling-lcp-paris-oligodermie/">
+                        <span>Peeling</span> </a>
+                    <div class="lcp-dot">&nbsp;</div>
+                </div>
+                <!-- 3. Tonikum -->
+                <div class="lcp-step"><a href="/tonikum-lcp-paris/"> <span>Tonikum</span> </a>
+                    <div class="lcp-dot">&nbsp;</div>
+                </div>
+                <!-- 4. Séra -->
+                <div class="lcp-step"><a href="/sera-lcp-paris/"
+                        data-secondary-href="https://www.depilujeme.cz/sera-lcp-paris-oligodermie/"> <span>Sérum
+                            /<br />Ampule</span> </a>
+                    <div class="lcp-dot">&nbsp;</div>
+                </div>
+                <!-- 5. Masáž -->
+                <div class="lcp-step lcp-active"><a href="/masaz-obliceje-lcp-paris/">
+                        <span>Masážní<br />přípravky</span> </a>
+                    <div class="lcp-dot">&nbsp;</div>
+                </div>
+                <!-- 6. Masky -->
+                <div class="lcp-step"><a href="/masky-lcp-paris/"
+                        data-secondary-href="https://www.depilujeme.cz/masky-lcp-paris-oligodermie/"> <span>Masky</span>
+                    </a>
+                    <div class="lcp-dot">&nbsp;</div>
+                </div>
+                <!-- 7. Péče o oční okolí -->
+                <div class="lcp-step"><a href="/pece-o-ocni-okoli-lcp-paris/"
+                        data-secondary-href="https://www.depilujeme.cz/pece-o-ocni-okoli/"> <span>Oční<br />krémy</span>
+                    </a>
+                    <div class="lcp-dot">&nbsp;</div>
+                </div>
+                <!-- 8. Krémy -->
+                <div class="lcp-step"><a href="/kremy-lcp-paris/"
+                        data-secondary-href="https://www.depilujeme.cz/kremy-lcp-paris-oligodermie/"> <span>Krémy
+                            a<br />SPF</span> </a>
+                    <div class="lcp-dot">&nbsp;</div>
+                </div>
+                <!-- 9. Chemický peeling -->
+                <div class="lcp-step"><a href="/chemicky-peeling-lcp-paris/"> <span>Chemický<br />peeling</span> </a>
+                    <div class="lcp-dot">&nbsp;</div>
+                </div>
+                <!-- 10. Doplňky -->
+                <div class="lcp-step"><a href="/doplnky-lcp-paris/"
+                        data-secondary-href="https://www.depilujeme.cz/masaz-obliceje-lcp-paris-oligodermie/">
+                        <span>Doplňky</span> </a>
+                    <div class="lcp-dot">&nbsp;</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Editorial 2-Column Grid optimalizováno pro 9/12 Shoptet container -->
+    <div class="lcp-editorial-grid">
+        
+        <!-- LEVÝ HLAVNÍ SLOUPEC -->
+        <div class="lcp-editorial-main">
+            <!-- Hlavička s logem a nadpisem -->
+            <div class="lcp-header">
+                <img src="https://www.lcpparis.cz/wp-content/uploads/2025/09/global_reconstructed-e1758806086356.png"
+                    alt="L.C.P Paris – Pro Age / Global řada" class="lcp-series-logo" />
+                <h2><strong>L.C.P. Paris Masážní balzám se zlatem a kaviárem 175 ml</strong></h2>
+            </div>
+
+            <!-- Úvodní popis / perex -->
+            <div class="lcp-lead-p">
+                Tento medový balzám se při aplikaci mění v masážní olej s vynikající kluzností. Má zvláčňující, antioxidační a
+                remineralizační účinky.
+            </div>
+
+            <!-- Sekce Aktivní složky -->
+            <div>
+                <div class="lcp-editorial-title">Aktivní složky</div>
+                <ul class="lcp-ingredients-editorial">
+                    <li>
+                        <span class="lcp-num">01</span>
+                        <div><strong>Zlato:</strong> působí antioxidačně, rozjasňuje pleť.</div>
+                    </li>
+                    <li>
+                        <span class="lcp-num">02</span>
+                        <div><strong>Extrakt z kaviáru:</strong> zlepšuje pružnost pleti a obnovu buněk, remineralizuje a vyhlazuje pleť.</div>
+                    </li>
+                    <li>
+                        <span class="lcp-num">03</span>
+                        <div><strong>Olej z hroznových semínek:</strong> regeneruje a pomáhá obnovovat strukturu pokožky.</div>
+                    </li>
+                    <li>
+                        <span class="lcp-num">04</span>
+                        <div><strong>Glycerin:</strong> pomáhá udržovat hydrataci vnějších vrstev pokožky.</div>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Sekce Použití -->
+            <div>
+                <div class="lcp-editorial-title">Použití</div>
+                <p class="lcp-usage-text">
+                    Naneste malé množství masážního balzámu do dlaně a zahřejte ho, aby se proměnil v olej. Poté proveďte masáž
+                    obličeje, krku a dekoltu. Po masáži přidejte vodu, aby se vytvořila mléčná emulze. Opláchněte.
+                </p>
+            </div>
+        </div>
+
+        <!-- PRAVÝ POSTRANNÍ SLOUPEC (SIDEBAR) -->
+        <div class="lcp-editorial-sidebar">
+            <!-- Sekce Další informace -->
+            <div>
+                <div class="lcp-editorial-title">Další informace</div>
+                <ul class="lcp-sidebar-specs">
+                    <li>
+                        <span class="lcp-spec-label">Typ pleti</span>
+                        <span class="lcp-spec-value">Všechny typy pleti</span>
+                    </li>
+                    <li>
+                        <span class="lcp-spec-label">Textura</span>
+                        <span class="lcp-spec-value">Balzám</span>
+                    </li>
+                    <li>
+                        <span class="lcp-spec-label">Vůně</span>
+                        <span class="lcp-spec-value">Květinová</span>
+                    </li>
+                    <li>
+                        <span class="lcp-spec-label">Množství na 1 použití</span>
+                        <span class="lcp-spec-value">3 ml</span>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Sekce Složení / INCI -->
+            <div>
+                <div class="lcp-inci-header-flex">
+                    <div class="lcp-editorial-title" style="margin-bottom: 0;">Složení / INCI</div>
+                    <button type="button" class="lcp-copy-btn" id="lcp-copy-btn" onclick="copyLcpInci()">
+                        Kopírovat
+                    </button>
+                </div>
+                <div class="lcp-inci-box" id="lcp-inci-text">Caprylic/Capric Triglyceride, Glycerin, Helianthus Annuus (Sunflower) Seed Oil,
+                    Propylene Glycol Dipelargonate, Aqua (Water), Sucrose Laurate, Sucrose Stearate, Parfum (Fragrance),
+                    Tocopheryl Acetate, Synthetic Fluorphlogopite, Tetramethyl Acetyloctahydronaphthalenes,
+                    Hexamethylindanopyran, CI 77891 (Titanium Dioxide), Linalyl Acetate, Linalool, Hexyl Cinnamal, Juniperus
+                    Virginiana Oil, Limonene, Pogostemon Cablin Oil, Benzyl Salicylate, CI 77491 (Iron Oxides), Citrus Limon
+                    (Lemon) Peel Oil, Citronellol, Citrus Aurantium Peel Oil, Vanillin, Pinene, Citrus Aurantium Bergamia
+                    (Bergamot) Peel Oil, Coumarin, Alpha-Isomethyl Ionone, Tocopherol, Caviar Extract</div>
+            </div>
+
+            <!-- Vyrobeno ve Francii -->
+            <div>
+                <span class="lcp-made-fr">Vyrobeno ve Francii</span>
+            </div>
+
+            <!-- Profesionální informace & Upozornění -->
+            <div class="lcp-pro-box">
+                <strong>Profesionální produkty svěřujeme pouze registrovaným kosmetičkám a salonům.</strong>
+                <p>Objednávku můžete provést po <a href="/registrace">registraci jako kosmetička</a>.</p>
+            </div>
+
+            <div class="lcp-warning">
+                <strong>Upozornění:</strong> Produkt je určený pouze na profesionální použití po zaškolení.
+            </div>
+        </div>
+    </div>
+
+    <!-- BRAND KONTAKT - ELEGANTNÍ LUXUSNÍ VIZITKA -->
+    <div class="lcp-brand-card">
+        <div class="lcp-brand-person">
+            <img src="https://cdn.myshoptet.com/usr/www.depilujeme.cz/user/documents/upload/d_trachtova.jpg"
+                alt="Dominika Trachtová" class="lcp-brand-avatar" />
+            <div class="lcp-brand-info">
+                <div class="lcp-brand-name">Mgr. Dominika Trachtová</div>
+                <div class="lcp-brand-role">Brand manager • <a href="https://www.lcpparis.cz/" target="_blank" rel="noopener noreferrer">L.C.P Paris</a></div>
+            </div>
+        </div>
+        <div class="lcp-brand-details">
+            <a href="tel:+420731517820" class="lcp-contact-pill">
+                <span class="lcp-pill-label">Tel:</span>
+                <span class="lcp-pill-val">+420 731 517 820</span>
+            </a>
+            <a href="mailto:info@lcpparis.cz" class="lcp-contact-pill">
+                <span class="lcp-pill-label">E-mail:</span>
+                <span class="lcp-pill-val">info@lcpparis.cz</span>
+            </a>
+            <a href="https://www.lcpparis.cz/" target="_blank" rel="noopener noreferrer" class="lcp-contact-pill">
+                <span class="lcp-pill-label">Web:</span>
+                <span class="lcp-pill-val">www.lcpparis.cz</span>
+            </a>
+        </div>
+    </div>
+</div>
+
+<script>
+    function copyLcpInci() {
+        var inciText = document.getElementById("lcp-inci-text");
+        var btn = document.getElementById("lcp-copy-btn");
+        if (inciText) {
+            var text = inciText.innerText || inciText.textContent;
+            navigator.clipboard.writeText(text).then(function() {
+                if (btn) {
+                    var originalText = btn.innerText;
+                    btn.innerText = "Zkopírováno!";
+                    btn.style.background = "#eb6c7d";
+                    btn.style.borderColor = "#eb6c7d";
+                    btn.style.color = "#ffffff";
+                    setTimeout(function() {
+                        btn.innerText = originalText;
+                        btn.style.background = "#ffffff";
+                        btn.style.borderColor = "#d8c9b6";
+                        btn.style.color = "#7a6b5b";
+                    }, 2200);
+                }
+            }).catch(function(err) {
+                console.log("Copy failed", err);
+            });
+        }
+    }
+</script>

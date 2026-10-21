@@ -1,0 +1,3222 @@
+<p>&nbsp;</p>
+<p>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+</p>
+
+<!-- ==========================================================================
+     L.C.P. Paris – Interaktivní Průvodce procedurami: Lash Lifting & Laminace obočí
+     Samostatná stránka na Shoptet | Dynamické AJAX načítání produktů
+     ========================================================================== -->
+
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap');
+
+    /* --------------------------------------------------------------------------
+       1. HLAVIČKA PRŮVODCE
+       -------------------------------------------------------------------------- */
+    .lcp-guide-header {
+        text-align: center;
+        max-width: 840px;
+        margin: 35px auto 25px;
+        font-family: 'Montserrat', Arial, sans-serif;
+        padding: 0 15px;
+        box-sizing: border-box;
+    }
+
+    .lcp-guide-tag {
+        font-size: 11px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.15em;
+        color: #eb6c7d;
+        background: #fff0f2;
+        padding: 6px 16px;
+        border-radius: 50px;
+        display: inline-block;
+        margin-bottom: 12px;
+    }
+
+    .lcp-guide-header h1 {
+        font-size: 30px;
+        font-weight: 700;
+        color: #2b2b2b;
+        margin: 0 0 12px;
+        letter-spacing: -0.02em;
+        line-height: 1.3;
+    }
+
+    .lcp-guide-header p {
+        font-size: 14.5px;
+        line-height: 1.65;
+        color: #666666;
+        margin: 0 auto;
+        max-width: 720px;
+    }
+
+    /* --------------------------------------------------------------------------
+       2. KONTEJNER ČASOVÉ OSY
+       -------------------------------------------------------------------------- */
+    .lcp-guide-container {
+        font-family: 'Montserrat', Arial, sans-serif;
+        color: #2b2b2b;
+        max-width: 1300px;
+        margin: 0 auto 30px;
+        padding: 0 15px;
+        box-sizing: border-box;
+    }
+
+    .lcp-guide-card {
+        background: #fffbfb;
+        border: 1px solid #f9e2e5;
+        border-radius: 18px;
+        padding: 24px 20px 22px;
+        box-shadow: 0 8px 30px rgba(235, 108, 125, 0.04);
+        position: relative;
+        box-sizing: border-box;
+    }
+
+    /* Horní panel s přepínačem procedur */
+    .lcp-guide-nav-bar {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        gap: 14px;
+        margin-bottom: 22px;
+        padding-bottom: 16px;
+        border-bottom: 1px solid #f8e5e8;
+    }
+
+    .lcp-guide-step-counter {
+        font-size: 13px;
+        font-weight: 600;
+        color: #555555;
+    }
+
+    .lcp-guide-step-counter strong {
+        color: #eb6c7d;
+        font-weight: 700;
+    }
+
+    /* Přepínač procedur (Tabs) – bez emotikonů */
+    .lcp-guide-tabs {
+        display: inline-flex;
+        background: #fff0f2;
+        padding: 4px;
+        border-radius: 50px;
+        border: 1px solid #fad3d8;
+        gap: 4px;
+        box-sizing: border-box;
+        max-width: 100%;
+    }
+
+    .lcp-guide-tab {
+        background: transparent !important;
+        border: none !important;
+        outline: none !important;
+        cursor: pointer !important;
+        font-family: 'Montserrat', sans-serif !important;
+        font-size: 13px !important;
+        font-weight: 600 !important;
+        color: #7a5056 !important;
+        padding: 7px 18px !important;
+        border-radius: 30px !important;
+        transition: all 0.22s ease !important;
+        display: inline-flex !important;
+        align-items: center !important;
+        gap: 6px !important;
+        user-select: none !important;
+        white-space: nowrap !important;
+        box-sizing: border-box !important;
+        box-shadow: none !important;
+    }
+
+    .lcp-guide-tab:hover,
+    .lcp-guide-tab:focus {
+        background: rgba(255, 255, 255, 0.7) !important;
+        color: #eb6c7d !important;
+        border: none !important;
+        outline: none !important;
+        box-shadow: 0 2px 8px rgba(235, 108, 125, 0.12) !important;
+    }
+
+    .lcp-guide-tab:hover span,
+    .lcp-guide-tab:focus span {
+        color: #eb6c7d !important;
+    }
+
+    .lcp-guide-tab:hover .lcp-tab-badge,
+    .lcp-guide-tab:focus .lcp-tab-badge {
+        background: #ffe3e7 !important;
+        color: #eb6c7d !important;
+    }
+
+    .lcp-guide-tab.is-active,
+    .lcp-guide-tab.is-active:hover,
+    .lcp-guide-tab.is-active:focus {
+        background: #ffffff !important;
+        color: #eb6c7d !important;
+        box-shadow: 0 3px 10px rgba(235, 108, 125, 0.2) !important;
+    }
+
+    .lcp-guide-tab.is-active span,
+    .lcp-guide-tab.is-active:hover span {
+        color: #eb6c7d !important;
+    }
+
+    .lcp-tab-badge {
+        font-size: 10.5px !important;
+        font-weight: 700 !important;
+        background: #fff0f2 !important;
+        color: #eb6c7d !important;
+        padding: 2px 7px !important;
+        border-radius: 10px !important;
+        transition: all 0.2s ease !important;
+    }
+
+    .lcp-guide-tab.is-active .lcp-tab-badge,
+    .lcp-guide-tab.is-active:hover .lcp-tab-badge {
+        background: #eb6c7d !important;
+        color: #ffffff !important;
+    }
+
+    /* Zobrazovací okno osy (Viewport) */
+    .lcp-timeline-viewport {
+        position: relative;
+        margin: 5px 0 10px;
+    }
+
+
+    /* Horizontální scroll */
+    .lcp-timeline-scroll {
+        overflow-x: auto;
+        overflow-y: hidden;
+        position: relative;
+        padding: 10px 5px 15px;
+        margin: 0;
+        scrollbar-width: thin;
+        scrollbar-color: #fbd6dc #fff9fa;
+        scroll-behavior: smooth;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .lcp-timeline-scroll::-webkit-scrollbar {
+        height: 5px;
+    }
+
+    .lcp-timeline-scroll::-webkit-scrollbar-track {
+        background: #fff9fa;
+        border-radius: 10px;
+    }
+
+    .lcp-timeline-scroll::-webkit-scrollbar-thumb {
+        background: #fbd6dc;
+        border-radius: 10px;
+        transition: background 0.3s;
+    }
+
+    .lcp-timeline-scroll::-webkit-scrollbar-thumb:hover {
+        background: #eb6c7d;
+    }
+
+    /* Vnitřní kolejnice (Track) */
+    .lcp-routine-track {
+        position: relative !important;
+        min-width: max-content !important;
+        width: 100% !important;
+        display: block !important;
+    }
+
+    /* ---------------- SPOJOVACÍ LINKA A PUNTÍKY ---------------- */
+    .lcp-routine-line {
+        position: absolute !important;
+        bottom: 11px !important;
+        height: 4px !important;
+        background: #fcdade !important;
+        border-radius: 20px !important;
+        z-index: 1 !important;
+        pointer-events: none !important;
+        display: block !important;
+        line-height: 0 !important;
+        font-size: 0 !important;
+    }
+
+    .lcp-routine-line-fill {
+        position: absolute !important;
+        left: 0 !important;
+        top: 0 !important;
+        bottom: 0 !important;
+        width: 0% !important;
+        background: linear-gradient(90deg, #f7aab3 0%, #eb6c7d 100%) !important;
+        border-radius: 20px !important;
+        pointer-events: none !important;
+        transition: width 0.3s cubic-bezier(0.25, 1, 0.5, 1) !important;
+        z-index: 2 !important;
+        line-height: 0 !important;
+        font-size: 0 !important;
+    }
+
+    .lcp-routine-steps {
+        position: relative !important;
+        z-index: 3 !important;
+        display: flex !important;
+        align-items: flex-end !important;
+        width: 100% !important;
+        background: transparent !important;
+    }
+
+    /* Jednotlivý krok (bez čísel nahoře, rovná základní rovina) */
+    .lcp-step {
+        position: relative !important;
+        flex: 0 0 104px !important;
+        width: 104px !important;
+        min-width: 104px !important;
+        min-height: 80px !important;
+        padding: 6px 2px 28px !important;
+        box-sizing: border-box !important;
+        text-align: center !important;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: flex-end !important;
+        cursor: pointer !important;
+        transition: transform 0.25s ease !important;
+        user-select: none !important;
+        background: transparent !important;
+    }
+
+    .lcp-step:hover {
+        transform: translateY(-2px);
+    }
+
+    .lcp-step a {
+        text-decoration: none !important;
+        color: inherit !important;
+        display: block;
+        width: 100%;
+        cursor: pointer;
+    }
+
+    .lcp-step span {
+        font-size: 13px;
+        font-weight: 500;
+        line-height: 1.3;
+        color: #4a4a4a;
+        display: block;
+        transition: color 0.25s ease;
+        padding: 0 1px;
+        white-space: normal;
+        word-break: normal;
+        overflow-wrap: normal;
+    }
+
+    /* Puntík na lince */
+    .lcp-dot {
+        position: absolute !important;
+        bottom: 5px !important;
+        left: 0 !important;
+        right: 0 !important;
+        margin: 0 auto !important;
+        width: 10px !important;
+        height: 10px !important;
+        background: #fcdade !important;
+        border: 2.5px solid #ffffff !important;
+        border-radius: 50% !important;
+        box-sizing: content-box !important;
+        box-shadow: 0 1px 4px rgba(235, 108, 125, 0.15) !important;
+        transition: all 0.28s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
+        z-index: 4 !important;
+    }
+
+    /* Stavy kroků */
+    .lcp-step.lcp-completed span {
+        color: #555555;
+        font-weight: 500;
+    }
+
+    .lcp-step.lcp-completed .lcp-dot {
+        background: #f5b3be !important;
+        border: 2.5px solid #ffffff !important;
+        width: 12px !important;
+        height: 12px !important;
+        bottom: 4px !important;
+        box-shadow: 0 1px 3px rgba(235, 108, 125, 0.12) !important;
+    }
+
+    .lcp-step.lcp-active {
+        transform: translateY(-2px) scale(1.02);
+    }
+
+    .lcp-step.lcp-active span {
+        color: #eb6c7d !important;
+        font-weight: 700 !important;
+    }
+
+    .lcp-step.lcp-active .lcp-dot {
+        background: linear-gradient(135deg, #f98e9b 0%, #eb6c7d 100%) !important;
+        border: 3px solid #ffffff !important;
+        width: 15px !important;
+        height: 15px !important;
+        bottom: 2px !important;
+        animation: lcpPulseDot 1.8s ease-in-out infinite !important;
+        box-shadow: 0 3px 10px rgba(235, 108, 125, 0.35) !important;
+        z-index: 6 !important;
+    }
+
+    @keyframes lcpPulseDot {
+        0% {
+            transform: scale(1);
+            box-shadow: 0 0 0 0 rgba(235, 108, 125, 0.45), 0 3px 10px rgba(235, 108, 125, 0.35);
+        }
+
+        50% {
+            transform: scale(1.16);
+            box-shadow: 0 0 0 4px rgba(235, 108, 125, 0.18), 0 4px 14px rgba(235, 108, 125, 0.45);
+        }
+
+        100% {
+            transform: scale(1);
+            box-shadow: 0 0 0 0 rgba(235, 108, 125, 0), 0 3px 10px rgba(235, 108, 125, 0.35);
+        }
+    }
+
+    .lcp-step.lcp-upcoming span {
+        color: #8c8c8c;
+        font-weight: 400;
+    }
+
+    .lcp-step.lcp-upcoming .lcp-dot {
+        background: #fcdade !important;
+        border: 2.5px solid #ffffff !important;
+        width: 10px !important;
+        height: 10px !important;
+        bottom: 5px !important;
+    }
+
+    /* Zobrazení pohledů */
+    .lcp-guide-view {
+        display: none;
+    }
+
+    .lcp-guide-view.is-visible {
+        display: block;
+        animation: lcpFadeIn 0.3s ease;
+    }
+
+    @keyframes lcpFadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(3px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    /* --------------------------------------------------------------------------
+       3. PRODUKTOVÝ KONTEJNER (AJAX načítání ze Shoptetu)
+       -------------------------------------------------------------------------- */
+    #routine-products-container {
+        max-width: 1300px;
+        margin: 30px auto 50px;
+        padding: 0 15px;
+        min-height: 250px;
+        box-sizing: border-box;
+    }
+
+    .routine-loading {
+        text-align: center;
+        padding: 60px 20px;
+        font-family: 'Montserrat', sans-serif;
+        font-size: 15px;
+        font-weight: 600;
+        color: #eb6c7d;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 16px;
+    }
+
+    .routine-loading::after {
+        content: "";
+        width: 34px;
+        height: 34px;
+        border: 3px solid #fcdade;
+        border-top-color: #eb6c7d;
+        border-radius: 50%;
+        animation: lcpSpin 0.8s linear infinite;
+    }
+
+    @keyframes lcpSpin {
+        to {
+            transform: rotate(360deg);
+        }
+    }
+
+    .routine-placeholder {
+        text-align: center;
+        padding: 50px 20px;
+        font-family: 'Montserrat', sans-serif;
+        font-size: 14.5px;
+        color: #888888;
+        background: #fdfafa;
+        border: 1px dashed #fad3d8;
+        border-radius: 14px;
+    }
+
+    .routine-error {
+        text-align: center;
+        padding: 30px 20px;
+        font-family: 'Montserrat', sans-serif;
+        font-size: 14px;
+        color: #c62828;
+        background: #fff4f4;
+        border: 1px solid #ffcdd2;
+        border-radius: 12px;
+    }
+
+    /* --------------------------------------------------------------------------
+       4. FILTROVÁNÍ PODLE ZNAČEK
+       -------------------------------------------------------------------------- */
+    .lcp-brand-filter-bar {
+        background: #ffffff;
+        border: 1px solid #f8e5e8;
+        border-radius: 14px;
+        padding: 16px 20px;
+        margin: 0 auto 25px;
+        box-shadow: 0 4px 18px rgba(235, 108, 125, 0.05);
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        box-sizing: border-box;
+        animation: lcpFadeIn 0.3s ease;
+    }
+
+    .lcp-brand-filter-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+    }
+
+    .lcp-brand-filter-title {
+        font-size: 13px;
+        font-weight: 700;
+        color: #4a4a4a;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+    }
+
+    .lcp-brand-filter-title svg {
+        color: #eb6c7d;
+        flex-shrink: 0;
+    }
+
+    .lcp-brand-pills {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        align-items: center;
+    }
+
+    .lcp-brand-pill {
+        font-family: 'Montserrat', Arial, sans-serif !important;
+        font-size: 12.5px !important;
+        font-weight: 600 !important;
+        padding: 6px 14px !important;
+        border-radius: 50px !important;
+        background: #fff5f6 !important;
+        border: 1px solid #fad3d8 !important;
+        color: #7a5056 !important;
+        cursor: pointer !important;
+        transition: all 0.2s cubic-bezier(0.25, 1, 0.5, 1) !important;
+        display: inline-flex !important;
+        align-items: center !important;
+        gap: 6px !important;
+        user-select: none !important;
+        outline: none !important;
+        box-shadow: none !important;
+    }
+
+    .lcp-brand-pill:hover,
+    .lcp-brand-pill:focus {
+        border-color: #eb6c7d !important;
+        color: #eb6c7d !important;
+        background: #ffebef !important;
+        transform: translateY(-1px);
+        outline: none !important;
+    }
+
+    .lcp-brand-pill.is-active,
+    .lcp-brand-pill.is-active:hover,
+    .lcp-brand-pill.is-active:focus {
+        background: linear-gradient(135deg, #f78d9b 0%, #eb6c7d 100%) !important;
+        color: #ffffff !important;
+        border-color: transparent !important;
+        box-shadow: 0 3px 10px rgba(235, 108, 125, 0.28) !important;
+        transform: translateY(-1px);
+    }
+
+    .lcp-brand-pill .lcp-brand-count {
+        font-size: 11px;
+        font-weight: 700;
+        background: #ffe4e8;
+        color: #eb6c7d;
+        padding: 1px 7px;
+        border-radius: 20px;
+        transition: all 0.2s ease;
+    }
+
+    .lcp-brand-pill.is-active .lcp-brand-count {
+        background: rgba(255, 255, 255, 0.28);
+        color: #ffffff;
+    }
+
+    .lcp-brand-hidden {
+        display: none !important;
+    }
+
+    .lcp-brand-empty-msg {
+        text-align: center;
+        padding: 35px 20px;
+        font-family: 'Montserrat', sans-serif;
+        font-size: 14px;
+        color: #888888;
+        background: #fdfafa;
+        border: 1px dashed #fad3d8;
+        border-radius: 14px;
+        margin: 15px 0 30px;
+        display: none;
+    }
+
+    /* --------------------------------------------------------------------------
+       5. LIŠTA PODKATEGORIÍ (Typ přípravku pro lepení / Tvary natáček)
+       -------------------------------------------------------------------------- */
+    .lcp-subcat-bar {
+        max-width: 1300px;
+        margin: 0 auto 24px;
+        padding: 0 15px;
+        box-sizing: border-box;
+        animation: lcpFadeIn 0.3s ease;
+    }
+
+    .lcp-subcat-box {
+        background: #ffffff;
+        border: 1px solid #f9e2e5;
+        border-radius: 16px;
+        padding: 16px 20px;
+        box-shadow: 0 4px 20px rgba(235, 108, 125, 0.05);
+        box-sizing: border-box;
+    }
+
+    .lcp-subcat-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 12px;
+        padding-bottom: 8px;
+        border-bottom: 1px dashed #fce4e8;
+        gap: 12px;
+    }
+
+    .lcp-subcat-header-cta {
+        display: flex;
+        align-items: center;
+    }
+
+    .lcp-subcat-cta-header-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 7px;
+        background: linear-gradient(135deg, #fff2f4 0%, #ffe6e9 100%);
+        border: 1.5px solid #f7b5be;
+        border-radius: 50px;
+        padding: 6px 14px;
+        font-family: 'Montserrat', Arial, sans-serif;
+        font-size: 11.5px;
+        font-weight: 700;
+        color: #d84557 !important;
+        text-decoration: none;
+        cursor: pointer;
+        transition: all 0.22s cubic-bezier(0.25, 1, 0.5, 1);
+        box-shadow: 0 2px 6px rgba(235, 108, 125, 0.1);
+        white-space: nowrap;
+    }
+
+    .lcp-subcat-cta-header-btn:hover,
+    .lcp-subcat-cta-header-btn:focus {
+        background: linear-gradient(135deg, #f78d9b 0%, #eb6c7d 100%);
+        border-color: transparent;
+        color: #ffffff !important;
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px rgba(235, 108, 125, 0.25);
+    }
+
+    .lcp-subcat-cta-header-btn svg {
+        transition: transform 0.2s ease;
+        flex-shrink: 0;
+    }
+
+    .lcp-subcat-cta-header-btn:hover svg:last-child {
+        transform: translateX(2px);
+    }
+
+    .lcp-subcat-title {
+        font-size: 12.5px;
+        font-weight: 700;
+        color: #4a4a4a;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .lcp-subcat-title svg {
+        color: #eb6c7d;
+        flex-shrink: 0;
+    }
+
+    .lcp-subcat-items {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        align-items: stretch;
+    }
+
+    .lcp-subcat-items.is-cards-grid {
+        display: grid !important;
+        grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+        gap: 10px 10px !important;
+    }
+
+    .lcp-subcat-items.is-pills-wrap {
+        display: flex !important;
+        flex-wrap: wrap !important;
+        gap: 10px !important;
+        align-items: center !important;
+    }
+
+    /* Styl pilulek (pro Lepení řas) */
+    .lcp-subcat-pill {
+        appearance: none !important;
+        -webkit-appearance: none !important;
+        background: #fff8f9 !important;
+        border: 1px solid #f6cfd5 !important;
+        border-radius: 50px !important;
+        padding: 8px 18px !important;
+        font-family: 'Montserrat', Arial, sans-serif !important;
+        font-size: 13px !important;
+        font-weight: 600 !important;
+        color: #666666 !important;
+        cursor: pointer !important;
+        transition: all 0.2s cubic-bezier(0.25, 1, 0.5, 1) !important;
+        display: inline-flex !important;
+        align-items: center !important;
+        gap: 6px !important;
+        user-select: none !important;
+        box-sizing: border-box !important;
+        box-shadow: none !important;
+        outline: none !important;
+    }
+
+    .lcp-subcat-pill:hover,
+    .lcp-subcat-pill:focus {
+        background: #fff0f2 !important;
+        border-color: #eb6c7d !important;
+        color: #eb6c7d !important;
+        transform: translateY(-1px);
+        box-shadow: 0 3px 10px rgba(235, 108, 125, 0.12) !important;
+    }
+
+    .lcp-subcat-pill.is-active {
+        background: linear-gradient(135deg, #f78d9b 0%, #eb6c7d 100%) !important;
+        border-color: transparent !important;
+        color: #ffffff !important;
+        box-shadow: 0 4px 14px rgba(235, 108, 125, 0.28) !important;
+        transform: translateY(-1px);
+    }
+
+    /* Styl karet s obrázkem/ikonkou tvaru (pro Natáčky) – Varianta B (ikona vlevo, text vpravo na PC) */
+    .lcp-subcat-card {
+        appearance: none !important;
+        -webkit-appearance: none !important;
+        background: #fffdfd !important;
+        border: 1.5px solid #f7d2d7 !important;
+        border-radius: 14px !important;
+        padding: 10px 12px !important;
+        font-family: 'Montserrat', Arial, sans-serif !important;
+        cursor: pointer !important;
+        transition: all 0.22s ease !important;
+        display: flex !important;
+        flex-direction: row !important;
+        align-items: center !important;
+        justify-content: flex-start !important;
+        gap: 10px !important;
+        width: 100% !important;
+        min-width: 0 !important;
+        box-sizing: border-box !important;
+        user-select: none !important;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02) !important;
+        outline: none !important;
+    }
+
+    .lcp-subcat-card:hover,
+    .lcp-subcat-card:focus {
+        background: #ffffff !important;
+        border-color: #eb6c7d !important;
+        transform: translateY(-2px);
+        box-shadow: 0 6px 18px rgba(235, 108, 125, 0.15) !important;
+    }
+
+    .lcp-subcat-card.is-active {
+        background: #fff5f6 !important;
+        border-color: #eb6c7d !important;
+        box-shadow: 0 4px 16px rgba(235, 108, 125, 0.22) !important;
+    }
+
+    .lcp-subcat-icon-box {
+        width: 50px;
+        height: 48px;
+        flex-shrink: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #fff0f2;
+        border-radius: 10px;
+        overflow: hidden;
+        transition: all 0.2s ease;
+    }
+
+    .lcp-subcat-card.is-active .lcp-subcat-icon-box {
+        background: #ffffff;
+        box-shadow: 0 2px 8px rgba(235, 108, 125, 0.2);
+    }
+
+    .lcp-subcat-icon-box img {
+        max-width: 100%;
+        max-height: 100%;
+        object-fit: contain;
+        display: block;
+    }
+
+    .lcp-subcat-icon-box svg {
+        color: #eb6c7d;
+        height: 36px !important;
+        width: 28px !important;
+        max-height: 38px !important;
+        display: block;
+    }
+
+    .lcp-subcat-card .lcp-subcat-label {
+        font-size: 11.5px;
+        font-weight: 700;
+        color: #4a4a4a;
+        text-align: left;
+        line-height: 1.25;
+        transition: color 0.2s ease;
+        white-space: nowrap;
+        letter-spacing: 0.02em;
+        min-width: 0;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .lcp-subcat-card:hover .lcp-subcat-label,
+    .lcp-subcat-card.is-active .lcp-subcat-label {
+        color: #eb6c7d;
+    }
+
+    @media (max-width: 1080px) {
+        .lcp-subcat-items.is-cards-grid {
+            grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+            gap: 10px 10px !important;
+        }
+
+        .lcp-subcat-card {
+            padding: 10px 14px !important;
+        }
+
+        .lcp-subcat-card .lcp-subcat-label {
+            font-size: 12px;
+        }
+    }
+
+    @media (max-width: 640px) {
+        .lcp-subcat-box {
+            padding: 12px 14px;
+        }
+
+        .lcp-subcat-header {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 10px;
+        }
+
+        .lcp-subcat-header-cta {
+            width: 100%;
+        }
+
+        .lcp-subcat-cta-header-btn {
+            width: 100%;
+            justify-content: center;
+            box-sizing: border-box;
+            padding: 7px 12px;
+            font-size: 11.5px;
+        }
+
+        .lcp-subcat-items {
+            gap: 8px;
+        }
+
+        .lcp-subcat-pill {
+            font-size: 12px !important;
+            padding: 7px 14px !important;
+        }
+
+        .lcp-subcat-items.is-cards-grid {
+            grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+            gap: 8px 8px !important;
+        }
+
+        .lcp-subcat-card {
+            flex-direction: column !important;
+            justify-content: center !important;
+            align-items: center !important;
+            padding: 10px 6px !important;
+            border-radius: 12px !important;
+            gap: 7px !important;
+        }
+
+        .lcp-subcat-icon-box {
+            width: 48px;
+            height: 42px;
+        }
+
+        .lcp-subcat-icon-box svg {
+            height: 32px !important;
+            width: 26px !important;
+        }
+
+        .lcp-subcat-card .lcp-subcat-label {
+            font-size: 11px !important;
+            text-align: center !important;
+            white-space: normal;
+        }
+    }
+
+    @media (max-width: 400px) {
+        .lcp-subcat-card .lcp-subcat-label {
+            font-size: 10.5px !important;
+        }
+    }
+
+
+    /* --------------------------------------------------------------------------
+       6. ROZVRŽENÍ A OPRAVA MŘÍŽKY PRODUKTŮ (PŘI FILTROVÁNÍ I BEZ)
+       -------------------------------------------------------------------------- */
+    #routine-products-container .products,
+    #routine-products-container .products-block,
+    #routine-products-container .product-grid,
+    #routine-products-container #products-default {
+        display: flex !important;
+        flex-wrap: wrap !important;
+        float: none !important;
+        margin-left: -12px !important;
+        margin-right: -12px !important;
+        padding: 0 !important;
+        list-style: none !important;
+        width: auto !important;
+    }
+
+    /* Skrytí oddělovačů řádků a clearfix elementů Shoptetu */
+    #routine-products-container .products::before,
+    #routine-products-container .products::after,
+    #routine-products-container .products>.clear,
+    #routine-products-container .products>.decor-delimeter,
+    #routine-products-container .products-block>.clear,
+    #routine-products-container .products-block>.decor-delimeter,
+    #routine-products-container #products-default>.clear,
+    #routine-products-container #products-default>.decor-delimeter {
+        display: none !important;
+    }
+
+    /* Karty produktů – vždy plynule 3 sloupce na desktopu */
+    #routine-products-container .products>.product,
+    #routine-products-container .products-block>.product,
+    #routine-products-container .product-grid>.product,
+    #routine-products-container #products-default>.product {
+        float: none !important;
+        clear: none !important;
+        flex: 0 0 33.33333% !important;
+        max-width: 33.33333% !important;
+        width: 33.33333% !important;
+        box-sizing: border-box !important;
+        padding: 0 12px 30px !important;
+        margin: 0 !important;
+    }
+
+    #routine-products-container .product.lcp-brand-hidden {
+        display: none !important;
+    }
+
+    /* Responzivní přizpůsobení */
+    @media (max-width: 991px) and (min-width: 576px) {
+
+        #routine-products-container .products>.product,
+        #routine-products-container .products-block>.product,
+        #routine-products-container .product-grid>.product,
+        #routine-products-container #products-default>.product {
+            flex: 0 0 50% !important;
+            max-width: 50% !important;
+            width: 50% !important;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .lcp-guide-header h1 {
+            font-size: 24px;
+        }
+
+        .lcp-guide-card {
+            padding: 16px 12px;
+            overflow: hidden;
+        }
+
+        .lcp-guide-nav-bar {
+            flex-direction: column;
+            align-items: stretch;
+            gap: 12px;
+            margin-bottom: 18px;
+            padding-bottom: 14px;
+            box-sizing: border-box;
+        }
+
+        .lcp-guide-step-counter {
+            text-align: center;
+            font-size: 13px;
+        }
+
+        .lcp-step {
+            flex: 0 0 92px;
+            width: 92px;
+            min-width: 92px;
+            min-height: 74px;
+        }
+
+        .lcp-step span {
+            font-size: 11.5px;
+        }
+
+        .lcp-brand-filter-bar {
+            padding: 12px 14px;
+            margin-bottom: 20px;
+        }
+
+        .lcp-brand-pill {
+            font-size: 11.5px;
+            padding: 5px 11px;
+        }
+
+    }
+
+    /* Tablety a širší telefony (521px - 768px) */
+    @media (min-width: 521px) and (max-width: 768px) {
+        .lcp-guide-tabs {
+            width: 100%;
+            display: flex;
+            box-sizing: border-box;
+            border-radius: 50px;
+            padding: 4px;
+            gap: 4px;
+        }
+
+        .lcp-guide-tab {
+            flex: 1 1 0;
+            min-width: 0;
+            justify-content: center;
+            font-size: 12px;
+            padding: 7px 8px;
+            box-sizing: border-box;
+        }
+    }
+
+    /* Mobilní telefony (<= 520px): Přepínače skládané pod sebe – 100% šířka, žádné přetékání */
+    @media (max-width: 520px) {
+        .lcp-guide-tabs {
+            width: 100% !important;
+            display: flex !important;
+            flex-direction: column !important;
+            border-radius: 14px !important;
+            padding: 5px !important;
+            gap: 6px !important;
+            box-sizing: border-box !important;
+        }
+
+        .lcp-guide-tab {
+            width: 100% !important;
+            justify-content: space-between !important;
+            padding: 10px 14px !important;
+            border-radius: 10px !important;
+            font-size: 13px !important;
+            box-sizing: border-box !important;
+            white-space: normal !important;
+        }
+
+        .lcp-tab-badge {
+            font-size: 11px !important;
+            padding: 3px 8px !important;
+            border-radius: 10px !important;
+        }
+    }
+
+    /* --------------------------------------------------------------------------
+       6. NAVIGACE MEZI KROKY (Varianta 1: Sjednocené pilulky)
+       -------------------------------------------------------------------------- */
+    .lcp-bottom-nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 14px;
+        max-width: 1000px;
+        margin: 45px auto 25px;
+        padding-top: 25px;
+        border-top: 1px dashed #fce4e8;
+        box-sizing: border-box;
+        width: 100%;
+        clear: both;
+    }
+
+    .lcp-nav-btn {
+        font-family: 'Montserrat', Arial, sans-serif !important;
+        appearance: none !important;
+        -webkit-appearance: none !important;
+        border: none !important;
+        outline: none !important;
+        cursor: pointer !important;
+        user-select: none !important;
+        border-radius: 50px !important;
+        padding: 9px 22px !important;
+        transition: all 0.22s cubic-bezier(0.25, 1, 0.5, 1) !important;
+        display: inline-flex !important;
+        align-items: center !important;
+        gap: 12px !important;
+        box-sizing: border-box !important;
+        text-decoration: none !important;
+    }
+
+    /* Tlačítko Předchozí krok */
+    .lcp-nav-btn.is-prev {
+        background: #ffffff !important;
+        border: 1.5px solid #f7cfd5 !important;
+        color: #4a4a4a !important;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02) !important;
+        text-align: left !important;
+    }
+
+    .lcp-nav-btn.is-prev:hover:not(:disabled) {
+        border-color: #eb6c7d !important;
+        background: #fff8f9 !important;
+        color: #eb6c7d !important;
+        transform: translateX(-3px);
+        box-shadow: 0 4px 14px rgba(235, 108, 125, 0.15) !important;
+    }
+
+    /* Tlačítko Následující krok (hlavní CTA) */
+    .lcp-nav-btn.is-next {
+        background: linear-gradient(135deg, #f78d9b 0%, #eb6c7d 100%) !important;
+        border: 1.5px solid transparent !important;
+        color: #ffffff !important;
+        box-shadow: 0 4px 14px rgba(235, 108, 125, 0.28) !important;
+        text-align: right !important;
+    }
+
+    .lcp-nav-btn.is-next:hover:not(:disabled) {
+        transform: translateX(3px);
+        box-shadow: 0 6px 18px rgba(235, 108, 125, 0.38) !important;
+        background: linear-gradient(135deg, #f99aa6 0%, #ee5c70 100%) !important;
+    }
+
+    /* Tlačítko Nahoru */
+    .lcp-nav-btn.is-top {
+        background: #fff5f6 !important;
+        border: 1px solid #fad3d8 !important;
+        padding: 9px 18px !important;
+        font-size: 12px !important;
+        font-weight: 600 !important;
+        color: #777777 !important;
+        gap: 6px !important;
+        white-space: nowrap !important;
+    }
+
+    .lcp-nav-btn.is-top:hover {
+        background: #fff0f2 !important;
+        border-color: #eb6c7d !important;
+        color: #eb6c7d !important;
+        transform: translateY(-2px);
+        box-shadow: 0 3px 10px rgba(235, 108, 125, 0.15) !important;
+    }
+
+    /* Kroužek pro šipky */
+    .lcp-nav-circle {
+        width: 26px !important;
+        height: 26px !important;
+        border-radius: 50% !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        flex-shrink: 0 !important;
+        transition: transform 0.2s ease !important;
+    }
+
+    .lcp-nav-btn.is-prev .lcp-nav-circle {
+        background: #fff0f2 !important;
+        color: #eb6c7d !important;
+    }
+
+    .lcp-nav-btn.is-next .lcp-nav-circle {
+        background: rgba(255, 255, 255, 0.25) !important;
+        color: #ffffff !important;
+    }
+
+    .lcp-nav-btn.is-prev:hover .lcp-nav-circle {
+        transform: translateX(-2px);
+    }
+
+    .lcp-nav-btn.is-next:hover .lcp-nav-circle {
+        transform: translateX(2px);
+    }
+
+    .lcp-nav-btn-text {
+        display: flex;
+        flex-direction: column;
+        line-height: 1.25;
+        min-width: 0;
+        overflow: hidden;
+    }
+
+    .lcp-nav-btn-hint {
+        font-size: 10px !important;
+        font-weight: 600 !important;
+        text-transform: uppercase !important;
+        letter-spacing: 0.04em !important;
+        opacity: 0.8 !important;
+        white-space: nowrap !important;
+    }
+
+    .lcp-nav-btn.is-prev .lcp-nav-btn-hint {
+        color: #888888 !important;
+    }
+
+    .lcp-nav-btn.is-next .lcp-nav-btn-hint {
+        color: #fff0f2 !important;
+    }
+
+    .lcp-nav-btn-title {
+        font-size: 12.5px !important;
+        font-weight: 700 !important;
+        white-space: nowrap !important;
+        max-width: 200px !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+        text-transform: none !important;
+    }
+
+    .lcp-nav-btn:disabled {
+        opacity: 0.35 !important;
+        cursor: not-allowed !important;
+        pointer-events: none !important;
+        box-shadow: none !important;
+        transform: none !important;
+    }
+
+    @media (max-width: 680px) {
+        .lcp-bottom-nav {
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 30px auto 20px;
+            padding-top: 18px;
+        }
+
+        /* Možnost B: Hlavní CTA - Další krok nahoře na celou šířku */
+        .lcp-nav-btn.is-next {
+            order: 1 !important;
+            width: 100% !important;
+            justify-content: space-between !important;
+            padding: 12px 18px !important;
+            box-shadow: 0 4px 14px rgba(235, 108, 125, 0.3) !important;
+        }
+
+        .lcp-nav-btn.is-next .lcp-nav-btn-text {
+            text-align: left !important;
+        }
+
+        .lcp-nav-btn.is-next .lcp-nav-btn-title {
+            font-size: 13.5px !important;
+            max-width: 100% !important;
+        }
+
+        .lcp-nav-btn.is-next .lcp-nav-circle {
+            width: 28px !important;
+            height: 28px !important;
+            min-width: 28px !important;
+        }
+
+        /* 2. Předchozí krok vlevo dole */
+        .lcp-nav-btn.is-prev {
+            order: 2 !important;
+            flex: 1 1 0% !important;
+            min-width: 0 !important;
+            padding: 9px 12px !important;
+            gap: 8px !important;
+            justify-content: flex-start !important;
+        }
+
+        .lcp-nav-btn.is-prev .lcp-nav-circle {
+            width: 24px !important;
+            height: 24px !important;
+            min-width: 24px !important;
+        }
+
+        .lcp-nav-btn.is-prev .lcp-nav-btn-title {
+            font-size: 11.5px !important;
+            max-width: 100% !important;
+        }
+
+        /* 3. Nahoru k výběru vpravo dole */
+        .lcp-nav-btn.is-top {
+            order: 3 !important;
+            width: auto !important;
+            flex: 0 0 auto !important;
+            padding: 9px 14px !important;
+            font-size: 11.5px !important;
+            gap: 5px !important;
+            justify-content: center !important;
+        }
+
+        .lcp-top-extra {
+            display: none !important;
+        }
+    }
+
+    @media (max-width: 575px) {
+
+        #routine-products-container .products>.product,
+        #routine-products-container .products-block>.product,
+        #routine-products-container .product-grid>.product,
+        #routine-products-container #products-default>.product {
+            flex: 0 0 100% !important;
+            max-width: 100% !important;
+            width: 100% !important;
+        }
+
+        .lcp-next-step-wrap {
+            margin: 25px auto 15px;
+        }
+
+        .lcp-next-step-btn {
+            width: 100%;
+            max-width: 320px;
+            justify-content: center;
+            font-size: 13.5px;
+            padding: 12px 22px;
+        }
+    }
+</style>
+
+<!-- ==========================================================================
+     STRUKTURA PRŮVODCE
+     ========================================================================== -->
+<div class="lcp-guide-header">
+    <span class="lcp-guide-tag">Interaktivní průvodce</span>
+    <h1>Průvodce procedurami: Lash Lifting &amp; Laminace obočí</h1>
+    <p>Vyberte proceduru a kliknutím na jednotlivé kroky protokolu zobrazte doporučené profesionální produkty pro daný
+        krok.</p>
+</div>
+
+<div class="lcp-guide-container">
+    <div class="lcp-guide-card" id="lcp-guide-card">
+
+        <!-- Horní navigační lišta: Indikátor kroku + přepínač procedur -->
+        <div class="lcp-guide-nav-bar">
+            <div class="lcp-guide-step-counter">
+                Zobrazený krok: <strong id="guide-active-name">1. krok</strong>
+            </div>
+
+            <!-- Přepínač procedur (Tabs) -->
+            <div class="lcp-guide-tabs" role="tablist">
+                <button type="button" class="lcp-guide-tab is-active" data-target="lash" role="tab"
+                    aria-selected="true">
+                    <span>Lash Lifting</span>
+                    <span class="lcp-tab-badge">16 kroků</span>
+                </button>
+                <button type="button" class="lcp-guide-tab" data-target="brow" role="tab" aria-selected="false">
+                    <span>Laminace obočí</span>
+                    <span class="lcp-tab-badge">13 kroků</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- ==================================================================
+             1. PROCEDURA: LASH LIFTING (16 KROKŮ)
+             ================================================================== -->
+        <div class="lcp-guide-view is-visible" id="guide-view-lash">
+            <div class="lcp-timeline-viewport">
+                <div class="lcp-timeline-scroll">
+                    <div class="lcp-routine-track">
+                        <!-- Spojovací linka -->
+                        <div class="lcp-routine-line">&nbsp;<div class="lcp-routine-line-fill">&nbsp;</div>
+                        </div>
+
+                        <!-- 16 kroků Lash Liftingu -->
+                        <div class="lcp-routine-steps">
+
+                            <!-- 1. Odlíčení -->
+                            <div class="lcp-step lcp-active" data-name="Odlíčení">
+                                <a href="https://www.depilujeme.cz/odlicovani/" data-secondary-href="">
+                                    <span>Odlíčení</span>
+                                </a>
+                                <div class="lcp-dot">&nbsp;</div>
+                            </div>
+
+                            <!-- 2. Podložky pod oči -->
+                            <div class="lcp-step" data-name="Podložky pod oči">
+                                <a href="https://www.depilujeme.cz/podlozky/" data-secondary-href="">
+                                    <span>Podložky<br />pod oči</span>
+                                </a>
+                                <div class="lcp-dot">&nbsp;</div>
+                            </div>
+
+                            <!-- 3. Odmaštění řas -->
+                            <div class="lcp-step" data-name="Odmaštění řas">
+                                <a href="https://www.depilujeme.cz/solne-roztoky/" data-secondary-href="">
+                                    <span>Odmaštění<br />řas</span>
+                                </a>
+                                <div class="lcp-dot">&nbsp;</div>
+                            </div>
+
+                            <!-- 4. Krok 0. -->
+                            <div class="lcp-step" data-name="Krok 0.">
+                                <a href="https://www.depilujeme.cz/krok-0/" data-secondary-href="">
+                                    <span>Krok 0.</span>
+                                </a>
+                                <div class="lcp-dot">&nbsp;</div>
+                            </div>
+
+                            <!-- 5. Natáčky -->
+                            <div class="lcp-step" data-name="Natáčky" data-step-id="natacky">
+                                <a href="https://www.depilujeme.cz/natacky-na-lash-lifting/" data-secondary-href="">
+                                    <span>Natáčky</span>
+                                </a>
+                                <div class="lcp-dot">&nbsp;</div>
+                            </div>
+
+                            <!-- 6. Lepení řas -->
+                            <div class="lcp-step" data-name="Lepení řas" data-step-id="lepeni-ras">
+                                <a href="https://www.depilujeme.cz/lepidla-na-lash-lifting--laminaci/"
+                                    data-secondary-href="">
+                                    <span>Lepení<br />řas</span>
+                                </a>
+                                <div class="lcp-dot">&nbsp;</div>
+                            </div>
+
+                            <!-- 7. 1. krok -->
+                            <div class="lcp-step" data-name="1. krok (Lifting)" data-step-id="1-krok">
+                                <a href="https://www.depilujeme.cz/1--krok/"
+                                    data-secondary-href="https://www.depilujeme.cz/sady-na-lash-lifting/">
+                                    <span>1. krok</span>
+                                </a>
+                                <div class="lcp-dot">&nbsp;</div>
+                            </div>
+
+                            <!-- 8. Kompenzátory -->
+                            <div class="lcp-step" data-name="Kompenzátory">
+                                <a href="https://www.depilujeme.cz/silikonove-pasky-lash-lifting/"
+                                    data-secondary-href="">
+                                    <span>Kompenzátory</span>
+                                </a>
+                                <div class="lcp-dot">&nbsp;</div>
+                            </div>
+
+                            <!-- 9. Krok 1,5 -->
+                            <div class="lcp-step" data-name="Krok 1,5">
+                                <a href="https://www.depilujeme.cz/vyplnovace-ras/" data-secondary-href="">
+                                    <span>Krok 1,5</span>
+                                </a>
+                                <div class="lcp-dot">&nbsp;</div>
+                            </div>
+
+                            <!-- 10. 2. krok -->
+                            <div class="lcp-step" data-name="2. krok (Fixace)">
+                                <a href="https://www.depilujeme.cz/2--krok/"
+                                    data-secondary-href="https://www.depilujeme.cz/sady-na-lash-lifting/">
+                                    <span>2. krok</span>
+                                </a>
+                                <div class="lcp-dot">&nbsp;</div>
+                            </div>
+
+                            <!-- 11. Barvení řas -->
+                            <div class="lcp-step" data-name="Barvení řas">
+                                <a href="https://www.depilujeme.cz/barvy-na-rasy/"
+                                    data-secondary-href="https://www.depilujeme.cz/odstranovace-barvy-2/">
+                                    <span>Barvení<br />řas</span>
+                                </a>
+                                <div class="lcp-dot">&nbsp;</div>
+                            </div>
+
+                            <!-- 12. Omývání řas po druhé -->
+                            <div class="lcp-step" data-name="Omývání řas po druhé">
+                                <a href="https://www.depilujeme.cz/omyvani-ras-po-ll/" data-secondary-href="">
+                                    <span>Omývání řas<br />po II</span>
+                                </a>
+                                <div class="lcp-dot">&nbsp;</div>
+                            </div>
+
+                            <!-- 13. BTX masky -->
+                            <div class="lcp-step" data-name="BTX masky">
+                                <a href="https://www.depilujeme.cz/btx/" data-secondary-href="">
+                                    <span>BTX<br />masky</span>
+                                </a>
+                                <div class="lcp-dot">&nbsp;</div>
+                            </div>
+
+                            <!-- 14. 3. krok -->
+                            <div class="lcp-step" data-name="3. krok (Výživa)">
+                                <a href="https://www.depilujeme.cz/3--krok/"
+                                    data-secondary-href="https://www.depilujeme.cz/sady-na-lash-lifting/">
+                                    <span>3. krok</span>
+                                </a>
+                                <div class="lcp-dot">&nbsp;</div>
+                            </div>
+
+                            <!-- 15. Styling na fotku -->
+                            <div class="lcp-step" data-name="Styling na fotku">
+                                <a href="https://www.depilujeme.cz/styling-ras-na-fotku-4/" data-secondary-href="">
+                                    <span>Styling<br />na fotku</span>
+                                </a>
+                                <div class="lcp-dot">&nbsp;</div>
+                            </div>
+
+                            <!-- 16. Dárky pro klientku -->
+                            <div class="lcp-step" data-name="Dárky pro klientku">
+                                <a href="https://www.depilujeme.cz/darky-pro-klientku/" data-secondary-href="">
+                                    <span>Dárky pro<br />klientku</span>
+                                </a>
+                                <div class="lcp-dot">&nbsp;</div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================================================================
+             2. PROCEDURA: LAMINACE OBOČÍ (13 KROKŮ)
+             ================================================================== -->
+        <div class="lcp-guide-view" id="guide-view-brow">
+            <div class="lcp-timeline-viewport">
+                <div class="lcp-timeline-scroll">
+                    <div class="lcp-routine-track">
+                        <!-- Spojovací linka -->
+                        <div class="lcp-routine-line">&nbsp;<div class="lcp-routine-line-fill">&nbsp;</div>
+                        </div>
+
+                        <!-- 13 kroků Laminace obočí -->
+                        <div class="lcp-routine-steps">
+
+                            <!-- 1. Očištění -->
+                            <div class="lcp-step lcp-active" data-name="Očištění">
+                                <a href="https://www.depilujeme.cz/odlicovace-vhodne-pro-laminaci/"
+                                    data-secondary-href="">
+                                    <span>Očištění</span>
+                                </a>
+                                <div class="lcp-dot">&nbsp;</div>
+                            </div>
+
+                            <!-- 2. Odmaštění -->
+                            <div class="lcp-step" data-name="Odmaštění">
+                                <a href="https://www.depilujeme.cz/fyziologicke-solne-roztoky/" data-secondary-href="">
+                                    <span>Odmaštění</span>
+                                </a>
+                                <div class="lcp-dot">&nbsp;</div>
+                            </div>
+
+                            <!-- 3. 0. krok -->
+                            <div class="lcp-step" data-name="0. krok">
+                                <a href="https://www.depilujeme.cz/krok-0-2/" data-secondary-href="">
+                                    <span>0. krok</span>
+                                </a>
+                                <div class="lcp-dot">&nbsp;</div>
+                            </div>
+
+                            <!-- 4. Ochranný balzám -->
+                            <div class="lcp-step" data-name="Ochranný balzám">
+                                <a href="https://www.depilujeme.cz/ochranne-balzamy/" data-secondary-href="">
+                                    <span>Ochranný<br />balzám</span>
+                                </a>
+                                <div class="lcp-dot">&nbsp;</div>
+                            </div>
+
+                            <!-- 5. 1. krok -->
+                            <div class="lcp-step" data-name="1. krok (Lifting)">
+                                <a href="https://www.depilujeme.cz/1-krok-2/"
+                                    data-secondary-href="https://www.depilujeme.cz/sady-3/">
+                                    <span>1. krok</span>
+                                </a>
+                                <div class="lcp-dot">&nbsp;</div>
+                            </div>
+
+                            <!-- 6. Fólie na obočí -->
+                            <div class="lcp-step" data-name="Fólie na obočí" data-step-id="folie-na-oboci">
+                                <a href="https://www.depilujeme.cz/folie-na-oboci/"
+                                    data-secondary-href="">
+                                    <span>Fólie<br>na obočí</span>
+                                </a>
+                                <div class="lcp-dot">&nbsp;</div>
+                            </div>
+
+                            <!-- 7. Krok 1,5 -->
+                            <div class="lcp-step" data-name="Krok 1,5">
+                                <a href="https://www.depilujeme.cz/vyplnovace-oboci/" data-secondary-href="">
+                                    <span>Krok 1,5</span>
+                                </a>
+                                <div class="lcp-dot">&nbsp;</div>
+                            </div>
+
+                            <!-- 8. 2. krok -->
+                            <div class="lcp-step" data-name="2. krok (Fixace)">
+                                <a href="https://www.depilujeme.cz/2-krok-2/"
+                                    data-secondary-href="https://www.depilujeme.cz/sady-3/">
+                                    <span>2. krok</span>
+                                </a>
+                                <div class="lcp-dot">&nbsp;</div>
+                            </div>
+
+                            <!-- 9. BTX Masky -->
+                            <div class="lcp-step" data-name="BTX Masky">
+                                <a href="https://www.depilujeme.cz/btx-masky-na-oboci/" data-secondary-href="">
+                                    <span>BTX<br />masky</span>
+                                </a>
+                                <div class="lcp-dot">&nbsp;</div>
+                            </div>
+
+                            <!-- 10. Omývání v průběhu laminace -->
+                            <div class="lcp-step" data-name="Omývání v průběhu">
+                                <a href="https://www.depilujeme.cz/omyvani-v-prubehu-laminace/" data-secondary-href="">
+                                    <span>Omývání<br />v průběhu</span>
+                                </a>
+                                <div class="lcp-dot">&nbsp;</div>
+                            </div>
+
+                            <!-- 11. Barvení -->
+                            <div class="lcp-step" data-name="Barvení">
+                                <a href="https://www.depilujeme.cz/barveni-oboci/" data-secondary-href="">
+                                    <span>Barvení</span>
+                                </a>
+                                <div class="lcp-dot">&nbsp;</div>
+                            </div>
+
+                            <!-- 12. 3. krok -->
+                            <div class="lcp-step" data-name="3. krok (Péče)">
+                                <a href="https://www.depilujeme.cz/3-krok-hloubkova-vyziva/"
+                                    data-secondary-href="https://www.depilujeme.cz/sady-3/">
+                                    <span>3. krok</span>
+                                </a>
+                                <div class="lcp-dot">&nbsp;</div>
+                            </div>
+
+                            <!-- 13. Dárky pro klientku -->
+                            <div class="lcp-step" data-name="Dárky pro klientku">
+                                <a href="https://www.depilujeme.cz/darky-pro-klientku-2/" data-secondary-href="">
+                                    <span>Dárky pro<br />klientku</span>
+                                </a>
+                                <div class="lcp-dot">&nbsp;</div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- ==========================================================================
+     LIŠTA PODKATEGORIÍ (Dynamicky se zobrazí pod kartou při výběru kroku s podkategoriemi)
+     ========================================================================== -->
+<div id="lcp-subcategories-bar" class="lcp-subcat-bar" style="display: none;">
+    <div class="lcp-subcat-box">
+        <div class="lcp-subcat-header">
+            <div class="lcp-subcat-title">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="3" y="3" width="7" height="7"></rect>
+                    <rect x="14" y="3" width="7" height="7"></rect>
+                    <rect x="14" y="14" width="7" height="7"></rect>
+                    <rect x="3" y="14" width="7" height="7"></rect>
+                </svg>
+                <span id="lcp-subcat-title-text">Upřesnit výběr:</span>
+            </div>
+            <div id="lcp-subcat-header-cta" class="lcp-subcat-header-cta" style="display: none;"></div>
+        </div>
+        <div class="lcp-subcat-items" id="lcp-subcat-items">
+            <!-- Tlačítka podkategorií se dynamicky vloží sem -->
+        </div>
+    </div>
+</div>
+
+<!-- ==========================================================================
+     MÍSTO PRO NAČÍTÁNÍ PRODUKTŮ PŘES AJAX
+     ========================================================================== -->
+<div id="routine-products-container">
+    <div class="routine-placeholder">Klikněte na libovolný krok procedury nahoře pro zobrazení produktů.</div>
+</div>
+
+<!-- ==========================================================================
+     JAVASCRIPT: PŘEPÍNÁNÍ ZÁLOŽEK, VODÍCÍ LINKA A AJAX NAČÍTÁNÍ PRODUKTŮ
+     ========================================================================== -->
+<script>
+    function initLcpGuide() {
+        const card = document.getElementById('lcp-guide-card');
+        const productsContainer = document.getElementById('routine-products-container');
+        const activeNameIndicator = document.getElementById('guide-active-name');
+        if (!card || !productsContainer) return;
+        if (card.dataset.lcpInitialized === 'true') return;
+        card.dataset.lcpInitialized = 'true';
+
+        const subcategoriesBar = document.getElementById('lcp-subcategories-bar');
+        const subcatItemsWrap = document.getElementById('lcp-subcat-items');
+        const subcatTitleText = document.getElementById('lcp-subcat-title-text');
+        const subcatHeaderCta = document.getElementById('lcp-subcat-header-cta');
+
+        const tabButtons = Array.from(card.querySelectorAll('.lcp-guide-tab'));
+        const views = {
+            lash: card.querySelector('#guide-view-lash'),
+            brow: card.querySelector('#guide-view-brow')
+        };
+
+        // Automatické odvození a zobrazení skutečného počtu kroků ze struktury HTML
+        function updateTabBadges() {
+            tabButtons.forEach(btn => {
+                const targetKey = btn.getAttribute('data-target');
+                const view = views[targetKey];
+                if (view) {
+                    const count = view.querySelectorAll('.lcp-step').length;
+                    const badge = btn.querySelector('.lcp-tab-badge');
+                    if (badge) {
+                        let label = 'kroků';
+                        if (count === 1) label = 'krok';
+                        else if (count >= 2 && count <= 4) label = 'kroky';
+                        badge.textContent = `${count} ${label}`;
+                    }
+                }
+            });
+        }
+        updateTabBadges();
+
+        let activeTransitionTimeout = null;
+        let currentActiveIndex = -1;
+        let currentActiveView = null;
+        let currentActiveStep = null;
+
+        function scrollToGuideCard() {
+            const guideCard = document.getElementById('lcp-guide-card');
+            if (guideCard) {
+                const topOffset = guideCard.getBoundingClientRect().top + window.pageYOffset - 25;
+                window.scrollTo({
+                    top: Math.max(0, topOffset),
+                    behavior: 'smooth'
+                });
+            }
+        }
+
+        function slugify(text) {
+            return (text || '')
+                .toLowerCase()
+                .normalize('NFD')
+                .replace(/[\u0300-\u036f]/g, '')
+                .replace(/[^a-z0-9]+/g, '-')
+                .replace(/^-+|-+$/g, '');
+        }
+
+        function getStepSlug(stepElement) {
+            if (!stepElement) return '';
+            const explicitId = stepElement.getAttribute('data-step-id');
+            if (explicitId) return explicitId;
+            const name = stepElement.getAttribute('data-name') || (stepElement.querySelector('span') ? stepElement.querySelector('span').innerText : (stepElement.textContent || ''));
+            return slugify(name);
+        }
+
+        function renderBottomNav(container) {
+            if (!container || !currentActiveView || !currentActiveStep) return;
+
+            // Zajištění, že se navigace nikdy nezdvojí (odstraní starou před vložením nové)
+            const existingNavs = container.querySelectorAll('.lcp-bottom-nav');
+            existingNavs.forEach(el => el.remove());
+
+            const steps = Array.from(currentActiveView.querySelectorAll('.lcp-step'));
+            const currentIndex = steps.indexOf(currentActiveStep);
+            if (currentIndex === -1) return;
+
+            const prevStep = currentIndex > 0 ? steps[currentIndex - 1] : null;
+            const nextStep = currentIndex < steps.length - 1 ? steps[currentIndex + 1] : null;
+
+            const prevName = prevStep ? (prevStep.getAttribute('data-name') || prevStep.querySelector('span').innerText.replace(/\n/g, ' ')) : '';
+            const nextName = nextStep ? (nextStep.getAttribute('data-name') || nextStep.querySelector('span').innerText.replace(/\n/g, ' ')) : '';
+
+            const bottomNav = document.createElement('div');
+            bottomNav.className = 'lcp-bottom-nav';
+
+            // 1. Předchozí krok (Pilulka se šipkou v kroužku)
+            const prevBtn = document.createElement('button');
+            prevBtn.type = 'button';
+            prevBtn.className = 'lcp-nav-btn is-prev';
+            if (!prevStep) {
+                prevBtn.disabled = true;
+                prevBtn.innerHTML = `
+                    <div class="lcp-nav-circle">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                    </div>
+                    <div class="lcp-nav-btn-text">
+                        <span class="lcp-nav-btn-hint">Předchozí</span>
+                        <span class="lcp-nav-btn-title">Začátek protokolu</span>
+                    </div>
+                `;
+            } else {
+                prevBtn.innerHTML = `
+                    <div class="lcp-nav-circle">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                    </div>
+                    <div class="lcp-nav-btn-text">
+                        <span class="lcp-nav-btn-hint">Předchozí</span>
+                        <span class="lcp-nav-btn-title">${prevName}</span>
+                    </div>
+                `;
+                prevBtn.addEventListener('click', () => {
+                    try { sessionStorage.removeItem('lcp_saved_scroll_y'); } catch(e){}
+                    activateStep(currentActiveView, prevStep, false);
+                    scrollToGuideCard();
+                });
+            }
+            bottomNav.appendChild(prevBtn);
+
+            // 2. Nahoru k výběru
+            const topBtn = document.createElement('button');
+            topBtn.type = 'button';
+            topBtn.className = 'lcp-nav-btn is-top';
+            topBtn.title = 'Přejít nahoru k přehledu kroků';
+            topBtn.innerHTML = `
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="19" x2="12" y2="5"></line><polyline points="5 12 12 5 19 12"></polyline></svg>
+                <span>Nahoru<span class="lcp-top-extra"> k výběru</span></span>
+            `;
+            topBtn.addEventListener('click', scrollToGuideCard);
+            bottomNav.appendChild(topBtn);
+
+            // 3. Následující krok (Pilulka se šipkou v kroužku)
+            const nextBtn = document.createElement('button');
+            nextBtn.type = 'button';
+            nextBtn.className = 'lcp-nav-btn is-next';
+            if (!nextStep) {
+                nextBtn.disabled = true;
+                nextBtn.innerHTML = `
+                    <div class="lcp-nav-btn-text" style="text-align: right;">
+                        <span class="lcp-nav-btn-hint">Dokončeno</span>
+                        <span class="lcp-nav-btn-title">Konec protokolu</span>
+                    </div>
+                    <div class="lcp-nav-circle">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                    </div>
+                `;
+            } else {
+                nextBtn.innerHTML = `
+                    <div class="lcp-nav-btn-text" style="text-align: right;">
+                        <span class="lcp-nav-btn-hint">Následující krok</span>
+                        <span class="lcp-nav-btn-title">${nextName}</span>
+                    </div>
+                    <div class="lcp-nav-circle">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                    </div>
+                `;
+                nextBtn.addEventListener('click', () => {
+                    try { sessionStorage.removeItem('lcp_saved_scroll_y'); } catch(e){}
+                    activateStep(currentActiveView, nextStep, false);
+                    scrollToGuideCard();
+                });
+            }
+            bottomNav.appendChild(nextBtn);
+
+            container.appendChild(bottomNav);
+        }
+
+        // 0. Zajištění a obnova struktury kolejnice a linky (pokud je editor Shoptetu smazal)
+        function ensureRoutineStructure(view) {
+            if (!view) return null;
+            if (view._hasRoutineStructure) {
+                return view.querySelector('.lcp-routine-track');
+            }
+            const scrollWrap = view.querySelector('.lcp-timeline-scroll');
+            if (!scrollWrap) return null;
+
+            let track = scrollWrap.querySelector('.lcp-routine-track');
+            let stepsWrap = scrollWrap.querySelector('.lcp-routine-steps');
+            const steps = Array.from(scrollWrap.querySelectorAll('.lcp-step'));
+
+            // Pokud Shoptet editor smazal obalující track nebo stepsWrap:
+            if (!track || !stepsWrap) {
+                if (!track) {
+                    track = document.createElement('div');
+                    track.className = 'lcp-routine-track';
+                }
+                if (!stepsWrap) {
+                    stepsWrap = document.createElement('div');
+                    stepsWrap.className = 'lcp-routine-steps';
+                }
+                steps.forEach(s => stepsWrap.appendChild(s));
+                if (!track.contains(stepsWrap)) track.appendChild(stepsWrap);
+                if (!scrollWrap.contains(track)) scrollWrap.appendChild(track);
+            }
+
+            // Zajištění existence linky a výplně
+            let line = track.querySelector('.lcp-routine-line');
+            if (!line) {
+                line = document.createElement('div');
+                line.className = 'lcp-routine-line';
+                line.innerHTML = '&nbsp;<div class="lcp-routine-line-fill">&nbsp;</div>';
+                track.insertBefore(line, track.firstChild);
+            } else {
+                let fill = line.querySelector('.lcp-routine-line-fill');
+                if (!fill) {
+                    fill = document.createElement('div');
+                    fill.className = 'lcp-routine-line-fill';
+                    fill.innerHTML = '&nbsp;';
+                    line.appendChild(fill);
+                }
+            }
+            view._hasRoutineStructure = true;
+            return track;
+        }
+
+        // 1. Aktualizace linky a výplně
+        function updateLine(view, targetIndex, duration = 0) {
+            if (!view) return;
+            ensureRoutineStructure(view);
+            const line = view.querySelector('.lcp-routine-line');
+            const fill = view.querySelector('.lcp-routine-line-fill');
+            const steps = Array.from(view.querySelectorAll('.lcp-step'));
+            if (!line || !fill || steps.length < 2) return;
+
+            const firstStep = steps[0];
+            const lastStep = steps[steps.length - 1];
+            const targetStep = steps[targetIndex] || firstStep;
+
+            const firstCenter = firstStep.offsetLeft + (firstStep.offsetWidth / 2);
+            const lastCenter = lastStep.offsetLeft + (lastStep.offsetWidth / 2);
+            const targetCenter = targetStep.offsetLeft + (targetStep.offsetWidth / 2);
+
+            line.style.left = firstCenter + 'px';
+            line.style.right = 'auto';
+            const totalWidth = lastCenter - firstCenter;
+            line.style.width = Math.max(0, totalWidth) + 'px';
+
+            const activeDistance = targetCenter - firstCenter;
+            const percent = totalWidth > 0 ? (activeDistance / totalWidth) * 100 : 0;
+
+            if (duration > 0) {
+                fill.style.setProperty('transition', `width ${duration}ms cubic-bezier(0.25, 1, 0.5, 1)`, 'important');
+            } else {
+                fill.style.setProperty('transition', 'none', 'important');
+            }
+            fill.style.width = Math.min(100, Math.max(0, percent)) + '%';
+        }
+
+        // 2. Centrování aktivního kroku ve scrollboxu
+        function scrollToActiveStep(view, stepElement, instant = false) {
+            if (!view || !stepElement) return;
+            const scrollWrap = view.querySelector('.lcp-timeline-scroll');
+            if (!scrollWrap) return;
+
+            const performScroll = () => {
+                const wrapWidth = scrollWrap.clientWidth;
+                const stepLeft = stepElement.offsetLeft;
+                const stepWidth = stepElement.clientWidth;
+                const targetScroll = stepLeft - (wrapWidth / 2) + (stepWidth / 2);
+
+                scrollWrap.scrollTo({
+                    left: Math.max(0, targetScroll),
+                    behavior: instant ? 'auto' : 'smooth'
+                });
+            };
+
+            if (instant) {
+                setTimeout(performScroll, 50);
+            } else {
+                performScroll();
+            }
+        }
+
+        // 3. Změna tříd kroků
+        function updateUIState(steps, activeIndex) {
+            steps.forEach((s, idx) => {
+                s.classList.remove('lcp-active', 'lcp-completed', 'lcp-upcoming');
+                if (idx < activeIndex) {
+                    s.classList.add('lcp-completed');
+                } else if (idx === activeIndex) {
+                    s.classList.add('lcp-active');
+                } else {
+                    s.classList.add('lcp-upcoming');
+                }
+            });
+        }
+
+        // 4. Výběr kroku s animovanou linkou
+        function selectStep(view, clickedStep, instant = false) {
+            const steps = Array.from(view.querySelectorAll('.lcp-step'));
+            const targetIndex = steps.indexOf(clickedStep);
+            if (targetIndex === -1) return;
+
+            const activeName = clickedStep.getAttribute('data-name') || clickedStep.querySelector('span').innerText.replace(/\n/g, ' ');
+            if (activeNameIndicator) {
+                activeNameIndicator.textContent = activeName;
+            }
+
+            if (currentActiveIndex === -1) {
+                const currentActive = steps.find(s => s.classList.contains('lcp-active'));
+                currentActiveIndex = currentActive ? steps.indexOf(currentActive) : 0;
+            }
+
+            const diff = Math.abs(targetIndex - currentActiveIndex);
+
+            if (instant || diff === 0) {
+                clearTimeout(activeTransitionTimeout);
+                updateLine(view, targetIndex, 0);
+                updateUIState(steps, targetIndex);
+                currentActiveIndex = targetIndex;
+                scrollToActiveStep(view, clickedStep, instant);
+                return;
+            }
+
+            clearTimeout(activeTransitionTimeout);
+            scrollToActiveStep(view, clickedStep, false);
+
+            const stepDelay = 120;
+            const totalDuration = diff * stepDelay;
+            updateLine(view, targetIndex, totalDuration);
+
+            const stepDirection = targetIndex > currentActiveIndex ? 1 : -1;
+            function nextTick() {
+                if (currentActiveIndex !== targetIndex) {
+                    currentActiveIndex += stepDirection;
+                    updateUIState(steps, currentActiveIndex);
+                    activeTransitionTimeout = setTimeout(nextTick, stepDelay);
+                }
+            }
+            nextTick();
+        }
+
+        // Známé značky na e-shopu pro přesnou identifikaci
+        const KNOWN_BRANDS = [
+            { id: 'elan', name: 'ÉLAN' },
+            { id: 'inlei', name: 'InLei' },
+            { id: 'maxymova', name: 'Maxymova' },
+            { id: 'my-lamination', name: 'My Lamination' },
+            { id: 'zola', name: 'Zola' },
+            { id: 'refectocil', name: 'Refectocil' },
+            { id: 'ruthie-belle', name: 'Ruthie Belle' },
+            { id: 'oko', name: 'OkO' },
+            { id: 'noemi', name: 'Noemi' },
+            { id: 'levissime', name: 'LeviSsime' },
+            { id: 'pink-flash-switzerland', name: 'Pink Flash Switzerland' },
+            { id: 'brow-henna', name: 'Brow Xenna' },
+            { id: 'katya-vinog', name: 'Katya Vinog' },
+            { id: 'lami-lashes', name: 'Lami Lashes' },
+            { id: 'lamitta', name: 'Lamitta' },
+            { id: 'lash-alchemy', name: 'Lash Alchemy' },
+            { id: 'mia', name: 'Mia' },
+            { id: 'nikk-mole', name: 'Nikk Mole' },
+            { id: 'nkim', name: 'nKim' },
+            { id: 'thuya', name: 'Thuya' },
+            { id: 'hedonic', name: 'HEDONIC' },
+            { id: 'creator-synthetic', name: 'Creator Synthetic' },
+            { id: 'violet-lashes', name: 'Carevna (Violet lashes)' },
+            { id: 'infinity', name: 'Infinity Hybrid' },
+            { id: 'ella-bache-2', name: 'Ella Baché' },
+            { id: 'italwax', name: 'Italwax' },
+            { id: 'perron-rigot-cirepil', name: 'Perron Rigot - Cirépil' },
+            { id: 'starpil', name: 'Starpil' },
+            { id: 'stayve', name: 'Stayve' },
+            { id: 'lcp-paris', name: 'L.C.P.Paris' },
+            { id: 'evolution', name: 'Evolution' }
+        ];
+
+        function escapeRegex(str) {
+            return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+        }
+
+        function extractManufacturersFromDoc(doc) {
+            const found = [];
+            const seenIds = new Set();
+            const inputs = doc.querySelectorAll('#manufacturer-filter input[data-filter-code="manufacturerId"], input[name="manufacturerId[]"]');
+            inputs.forEach(input => {
+                const val = (input.value || '').trim();
+                if (!val || seenIds.has(val)) return;
+                seenIds.add(val);
+                const label = input.closest('label');
+                let name = val;
+                if (label) {
+                    const clone = label.cloneNode(true);
+                    clone.querySelectorAll('.parametric-filter-cell-count, input').forEach(el => el.remove());
+                    name = clone.textContent.replace(/\u00a0/g, ' ').trim() || val;
+                }
+                found.push({ id: val, name: name });
+            });
+            return found;
+        }
+
+        function detectProductBrand(productEl, availableBrands) {
+            const nameEl = productEl.querySelector('[data-micro="name"]') ||
+                productEl.querySelector('.p-name') ||
+                productEl.querySelector('h2, h3, a');
+            const linkEl = productEl.querySelector('a.p-name') ||
+                productEl.querySelector('a[data-micro="url"]') ||
+                productEl.querySelector('.p-image a') ||
+                productEl.querySelector('a');
+
+            const pName = nameEl ? nameEl.textContent.trim() : '';
+            const pUrl = linkEl ? (linkEl.getAttribute('href') || '') : '';
+
+            const cleanUrl = pUrl.toLowerCase();
+            const cleanName = pName.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+
+            // 1. Zkontrolovat přesný výskyt v URL slug (např. /elan-... nebo /maxymova-...)
+            for (const b of availableBrands) {
+                const slug = b.id.toLowerCase();
+                if (cleanUrl.includes('/' + slug) || cleanUrl.includes('/' + slug + '-') || cleanUrl.includes(slug + '-')) {
+                    return b;
+                }
+            }
+
+            // 2. Zkontrolovat celé slovo názvu značky v titulku produktu
+            for (const b of availableBrands) {
+                const bClean = b.name.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+                const regex = new RegExp('(?:^|[\\s\\-_/(),.:;])' + escapeRegex(bClean) + '(?:$|[\\s\\-_/(),.:;])', 'i');
+                if (regex.test(cleanName)) {
+                    return b;
+                }
+            }
+
+            // 3. Kontrola slugu v URL
+            for (const b of availableBrands) {
+                const slug = b.id.toLowerCase();
+                if (slug.length >= 3 && cleanUrl.includes(slug)) {
+                    return b;
+                }
+            }
+
+            return null;
+        }
+
+        // Pomocná funkce pro sestavení URL konkrétní stránky kategorie v Shoptetu
+        function getPageUrl(baseUrl, pageNumber) {
+            if (pageNumber <= 1) return baseUrl;
+            try {
+                const urlObj = new URL(baseUrl, window.location.href);
+                let pathname = urlObj.pathname.replace(/\/strana-\d+\/?$/, '').replace(/\/+$/, '');
+                urlObj.pathname = pathname + `/strana-${pageNumber}/`;
+                return urlObj.toString();
+            } catch (e) {
+                let [path, search] = baseUrl.split('?');
+                path = path.replace(/\/strana-\d+\/?$/, '').replace(/\/+$/, '');
+                const newPath = path + `/strana-${pageNumber}/`;
+                return search ? `${newPath}?${search}` : newPath;
+            }
+        }
+
+        // Detekce celkového počtu stránek z HTML šablony Shoptetu
+        function detectTotalPages(doc, htmlText) {
+            // 1. Shoptet odkaz na poslední stránku v liště
+            const lastPageEl = doc.querySelector('[data-testid="linkLastPage"]');
+            if (lastPageEl) {
+                const n = parseInt(lastPageEl.textContent.trim(), 10);
+                if (!isNaN(n) && n > 1) return n;
+                const hrefMatch = (lastPageEl.getAttribute('href') || '').match(/strana-(\d+)/i);
+                if (hrefMatch) return parseInt(hrefMatch[1], 10);
+            }
+
+            // 2. Textový popis "Stránka X z Y" v pagination-description-pages
+            const descEl = doc.querySelector('.pagination-description-pages');
+            if (descEl) {
+                const m = descEl.textContent.match(/z\s*(\d+)/i);
+                if (m) {
+                    const n = parseInt(m[1], 10);
+                    if (!isNaN(n) && n > 1) return n;
+                }
+            }
+
+            // 3. Regex z HTML kódu pro jistotu
+            if (htmlText) {
+                const mText = htmlText.match(/pagination-description-pages[\s\S]*?z\s*<strong>(\d+)<\/strong>/i) ||
+                    htmlText.match(/z\s*<strong>(\d+)<\/strong>\s*-\s*<\/span>/i);
+                if (mText) {
+                    const n = parseInt(mText[1], 10);
+                    if (!isNaN(n) && n > 1) return n;
+                }
+            }
+
+            // 4. Prohledání všech čísel v paginačních odkazech
+            const pagiLinks = doc.querySelectorAll('.pagination a, .pagination strong, [data-testid="gridPagination"] a, .pagination-wrap a');
+            let maxNum = 1;
+            pagiLinks.forEach(el => {
+                const txt = el.textContent.trim();
+                const n = parseInt(txt, 10);
+                if (!isNaN(n) && n > maxNum) maxNum = n;
+                const href = el.getAttribute('href') || '';
+                const m = href.match(/strana-(\d+)/i);
+                if (m) {
+                    const hn = parseInt(m[1], 10);
+                    if (hn > maxNum) maxNum = hn;
+                }
+            });
+            if (maxNum > 1) return maxNum;
+
+            // 5. Pokud existuje odkaz rel="next", jsou k dispozici alespoň 2 stránky
+            if (doc.querySelector('link[rel="next"], a[rel="next"], [data-testid="linkNextPage"]')) {
+                return 2;
+            }
+
+            return 1;
+        }
+
+        // Unikátní identifikátor produktu pro spolehlivou deduplikaci
+        function getProductKey(productEl) {
+            const microId = productEl.getAttribute('data-micro-product-id') ||
+                productEl.getAttribute('data-micro-identifier');
+            if (microId) return microId;
+            const formInput = productEl.querySelector('input[name="productId"]');
+            if (formInput && formInput.value) return formInput.value;
+            const link = productEl.querySelector('a.p-name, a[data-micro="url"], .p-image a');
+            if (link && link.getAttribute('href')) return link.getAttribute('href').split('?')[0];
+            const nameEl = productEl.querySelector('[data-micro="name"], .p-name');
+            if (nameEl && nameEl.textContent.trim()) return nameEl.textContent.trim();
+            return null;
+        }
+
+        // Vyrovnávací paměť HTML a naparsovaných mřížek pro okamžité přepínání kroků bez čekání
+        const categoryHtmlCache = new Map();
+        const categoryParsedCache = new Map();
+        const domParser = new DOMParser();
+        let currentRequestId = 0;
+
+        // Pomocná funkce pro extrakci produktů z HTML dokumentu a přidání loading="lazy" na fotky
+        function extractProductsFromDoc(doc, targetGrid, seenProductKeys, dynamicManufacturers, seenManufIds) {
+            if (!doc) return targetGrid;
+
+            // Extrakce výrobců ze Shoptet parametrického filtru stránky
+            const docManufacturers = extractManufacturersFromDoc(doc);
+            docManufacturers.forEach(m => {
+                if (!seenManufIds.has(m.id)) {
+                    seenManufIds.add(m.id);
+                    dynamicManufacturers.push(m);
+                }
+            });
+
+            const productGrid = doc.querySelector('#products-default') ||
+                doc.querySelector('.products-block') ||
+                doc.querySelector('.product-grid') ||
+                doc.querySelector('.products') ||
+                doc.querySelector('#category-products-wrapper');
+
+            if (productGrid) {
+                // Odstranění starých zalamovacích elementů a Shoptet paginace z mřížky
+                productGrid.querySelectorAll('.decor-delimeter, .clear, .pagination, .pagination-wrap, #tab-pagi, .info-paging').forEach(el => el.remove());
+
+                const products = Array.from(productGrid.querySelectorAll('.product'));
+                if (products.length > 0) {
+                    if (!targetGrid) {
+                        targetGrid = productGrid;
+                        targetGrid.innerHTML = '';
+                    }
+                    const frag = document.createDocumentFragment();
+                    let addedCount = 0;
+                    products.forEach(p => {
+                        const key = getProductKey(p);
+                        if (!key || !seenProductKeys.has(key)) {
+                            if (key) seenProductKeys.add(key);
+                            const clone = p.cloneNode(true);
+
+                            // 1) Lazy loading obrázků: produktovým fotkám přidat loading="lazy" a decoding="async"
+                            clone.querySelectorAll('img').forEach(img => {
+                                img.setAttribute('loading', 'lazy');
+                                img.setAttribute('decoding', 'async');
+                            });
+
+                            frag.appendChild(clone);
+                            addedCount++;
+                        }
+                    });
+                    if (addedCount > 0) {
+                        targetGrid.appendChild(frag);
+                    }
+                }
+            }
+            return targetGrid;
+        }
+
+        // Pomocná funkce pro sestavení a navázání filtru značek (plynulá aktualizace na místě bez posunu layoutu)
+        function buildAndRenderBrandFilter(mainGrid, dynamicManufacturers, filterSlot) {
+            if (!mainGrid || !filterSlot) return;
+
+            const allAvailableBrands = [...dynamicManufacturers];
+            KNOWN_BRANDS.forEach(kb => {
+                if (!allAvailableBrands.some(b => b.id === kb.id)) {
+                    allAvailableBrands.push(kb);
+                }
+            });
+
+            const productElements = Array.from(mainGrid.querySelectorAll('.product'));
+            const brandCounts = new Map();
+            let totalProducts = 0;
+
+            productElements.forEach(product => {
+                totalProducts++;
+                const brand = detectProductBrand(product, allAvailableBrands);
+                if (brand) {
+                    product.setAttribute('data-brand', brand.id);
+                    if (!brandCounts.has(brand.id)) {
+                        brandCounts.set(brand.id, { id: brand.id, name: brand.name, count: 0 });
+                    }
+                    brandCounts.get(brand.id).count++;
+                } else {
+                    product.setAttribute('data-brand', 'other');
+                    if (!brandCounts.has('other')) {
+                        brandCounts.set('other', { id: 'other', name: 'Ostatní', count: 0 });
+                    }
+                    brandCounts.get('other').count++;
+                }
+            });
+
+            // 1. SCÉNÁŘ: Filtr již v DOMu existuje (Dávka 2 aktualizuje počty bez překreslení a bez jakéhokoliv poskoku)
+            const existingBar = filterSlot.querySelector('.lcp-brand-filter-bar');
+            if (existingBar) {
+                const pillsWrap = existingBar.querySelector('.lcp-brand-pills');
+                const activePill = pillsWrap ? pillsWrap.querySelector('.lcp-brand-pill.is-active') : null;
+                const activeBrand = activePill ? activePill.getAttribute('data-brand') : 'all';
+
+                // Aktualizace čísla v pilulce Všechny značky
+                const allBtn = pillsWrap ? pillsWrap.querySelector('.lcp-brand-pill[data-brand="all"]') : null;
+                if (allBtn) {
+                    const countSpan = allBtn.querySelector('.lcp-brand-count');
+                    if (countSpan) countSpan.textContent = totalProducts;
+                }
+
+                // Aktualizace čísel existujících značek a případné přidání nově nalezených značek
+                brandCounts.forEach((bData, bId) => {
+                    let pill = pillsWrap ? pillsWrap.querySelector(`.lcp-brand-pill[data-brand="${bId}"]`) : null;
+                    if (pill) {
+                        const countSpan = pill.querySelector('.lcp-brand-count');
+                        if (countSpan) countSpan.textContent = bData.count;
+                    } else if (pillsWrap) {
+                        const newBtn = document.createElement('button');
+                        newBtn.type = 'button';
+                        newBtn.className = 'lcp-brand-pill';
+                        newBtn.setAttribute('data-brand', bData.id);
+                        newBtn.innerHTML = `${bData.name} <span class="lcp-brand-count">${bData.count}</span>`;
+                        bindBrandPill(newBtn);
+                        pillsWrap.appendChild(newBtn);
+                    }
+                });
+
+                // Zajištění správné viditelnosti pro nově načtené produkty podle aktivního filtru
+                let visibleCount = 0;
+                productElements.forEach(p => {
+                    const pBrand = p.getAttribute('data-brand');
+                    const show = activeBrand === 'all' || pBrand === activeBrand;
+                    p.classList.toggle('lcp-brand-hidden', !show);
+                    if (show) visibleCount++;
+                });
+
+                const emptyMsg = filterSlot.querySelector('.lcp-brand-empty-msg');
+                if (emptyMsg) {
+                    emptyMsg.style.display = visibleCount === 0 ? 'block' : 'none';
+                }
+                return;
+            }
+
+            // 2. SCÉNÁŘ: První vytvoření filtru v Dávce 1 (pokud jsou alespoň 2 značky)
+            if (brandCounts.size >= 2) {
+                filterSlot.innerHTML = '';
+
+                const filterBar = document.createElement('div');
+                filterBar.className = 'lcp-brand-filter-bar';
+
+                const header = document.createElement('div');
+                header.className = 'lcp-brand-filter-header';
+                header.innerHTML = `
+                    <div class="lcp-brand-filter-title">
+                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                            <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon>
+                        </svg>
+                        <span>Filtrovat podle značky:</span>
+                    </div>
+                `;
+                filterBar.appendChild(header);
+
+                const pillsWrap = document.createElement('div');
+                pillsWrap.className = 'lcp-brand-pills';
+
+                // Tlačítko pro všechny značky
+                const allBtn = document.createElement('button');
+                allBtn.type = 'button';
+                allBtn.className = 'lcp-brand-pill is-active';
+                allBtn.setAttribute('data-brand', 'all');
+                allBtn.innerHTML = `Všechny značky <span class="lcp-brand-count">${totalProducts}</span>`;
+                pillsWrap.appendChild(allBtn);
+
+                // Seřazení značek podle abecedy (Ostatní nakonec)
+                const sortedBrands = Array.from(brandCounts.values()).sort((a, b) => {
+                    if (a.id === 'other') return 1;
+                    if (b.id === 'other') return -1;
+                    return a.name.localeCompare(b.name, 'cs');
+                });
+
+                sortedBrands.forEach(b => {
+                    const btn = document.createElement('button');
+                    btn.type = 'button';
+                    btn.className = 'lcp-brand-pill';
+                    btn.setAttribute('data-brand', b.id);
+                    btn.innerHTML = `${b.name} <span class="lcp-brand-count">${b.count}</span>`;
+                    pillsWrap.appendChild(btn);
+                });
+
+                filterBar.appendChild(pillsWrap);
+                filterSlot.appendChild(filterBar);
+
+                // Hláška pro případ, že filtr nic nenajde
+                const emptyMsg = document.createElement('div');
+                emptyMsg.className = 'lcp-brand-empty-msg';
+                emptyMsg.textContent = 'Pro vybranou značku nebyly v tomto kroku nalezeny žádné produkty.';
+                filterSlot.appendChild(emptyMsg);
+
+                Array.from(pillsWrap.querySelectorAll('.lcp-brand-pill')).forEach(bindBrandPill);
+            }
+
+            function bindBrandPill(pill) {
+                pill.addEventListener('click', () => {
+                    const brandId = pill.getAttribute('data-brand');
+                    const isAlreadyActive = pill.classList.contains('is-active');
+
+                    let targetBrand = brandId;
+                    if (isAlreadyActive && brandId !== 'all') {
+                        targetBrand = 'all';
+                    }
+
+                    const allPills = Array.from(filterSlot.querySelectorAll('.lcp-brand-pill'));
+                    allPills.forEach(p => {
+                        p.classList.toggle('is-active', p.getAttribute('data-brand') === targetBrand);
+                    });
+
+                    const currentProducts = Array.from(mainGrid.querySelectorAll('.product'));
+                    let visibleCount = 0;
+                    currentProducts.forEach(p => {
+                        const pBrand = p.getAttribute('data-brand');
+                        const show = targetBrand === 'all' || pBrand === targetBrand;
+                        p.classList.toggle('lcp-brand-hidden', !show);
+                        if (show) visibleCount++;
+                    });
+
+                    const emptyMsg = filterSlot.querySelector('.lcp-brand-empty-msg');
+                    if (emptyMsg) {
+                        emptyMsg.style.display = visibleCount === 0 ? 'block' : 'none';
+                    }
+                });
+            }
+        }
+
+        // 5. AJAX načítání produktů s postupným vykreslením (Staged Loading) a lazy-loadem fotek
+        async function loadCategoryProducts(primaryUrl, secondaryUrl = null) {
+            const requestId = ++currentRequestId;
+            const cacheKey = primaryUrl + '||' + (secondaryUrl || '');
+
+            // KONTROLA CACHE PARSOVANÝCH PRODUKTŮ: Okamžité vykreslení (0 ms) bez opakovaného parsování
+            if (categoryParsedCache.has(cacheKey)) {
+                const cached = categoryParsedCache.get(cacheKey);
+                if (requestId !== currentRequestId) return;
+                if (cached.grid) {
+                    productsContainer.innerHTML = '';
+                    const filterSlot = document.createElement('div');
+                    filterSlot.className = 'lcp-brand-filter-slot';
+                    productsContainer.appendChild(filterSlot);
+
+                    const clonedGrid = cached.grid.cloneNode(true);
+                    buildAndRenderBrandFilter(clonedGrid, cached.manufacturers, filterSlot);
+
+                    productsContainer.appendChild(clonedGrid);
+                    renderBottomNav(productsContainer);
+                    document.dispatchEvent(new CustomEvent('ShoptetDOMPageContentLoaded'));
+                    checkAndRestoreScroll(true);
+                } else {
+                    productsContainer.innerHTML = '<div class="routine-placeholder">V této kategorii momentálně nejsou žádné produkty.</div>';
+                    renderBottomNav(productsContainer);
+                }
+                return;
+            }
+
+            productsContainer.innerHTML = '<div class="routine-loading">Načítám produkty...</div>';
+
+            try {
+                const parser = (typeof domParser !== 'undefined' && domParser) ? domParser : new DOMParser();
+
+                // =========================================================================
+                // DÁVKA 1 (Okamžité zobrazení): Stažení a vykreslení 1. stránky (~0,6 s)
+                // =========================================================================
+                const fetchP1Promises = [
+                    fetch(primaryUrl)
+                        .then(r => r.ok ? r.text() : '')
+                        .catch(() => '')
+                ];
+                const hasSecondary = secondaryUrl && secondaryUrl !== primaryUrl && secondaryUrl !== '#' && !secondaryUrl.startsWith('javascript:');
+                if (hasSecondary) {
+                    fetchP1Promises.push(
+                        fetch(secondaryUrl)
+                            .then(r => r.ok ? r.text() : '')
+                            .catch(() => '')
+                    );
+                }
+
+                const [p1PrimaryText = '', p1SecondaryText = ''] = await Promise.all(fetchP1Promises);
+
+                if (requestId !== currentRequestId) return;
+
+                if (!p1PrimaryText && !p1SecondaryText) {
+                    throw new Error('Nepodařilo se stáhnout úvodní stránku kategorie: ' + primaryUrl);
+                }
+
+                const p1PrimaryDoc = p1PrimaryText ? parser.parseFromString(p1PrimaryText, 'text/html') : null;
+                const p1SecondaryDoc = p1SecondaryText ? parser.parseFromString(p1SecondaryText, 'text/html') : null;
+
+                let mainGrid = null;
+                const dynamicManufacturers = [];
+                const seenManufIds = new Set();
+                const seenProductKeys = new Set();
+
+                if (p1PrimaryDoc) {
+                    mainGrid = extractProductsFromDoc(p1PrimaryDoc, mainGrid, seenProductKeys, dynamicManufacturers, seenManufIds);
+                }
+                if (p1SecondaryDoc) {
+                    mainGrid = extractProductsFromDoc(p1SecondaryDoc, mainGrid, seenProductKeys, dynamicManufacturers, seenManufIds);
+                }
+
+                if (requestId !== currentRequestId) return;
+
+                // Zjistíme celkový počet stránek pro obě kategorie
+                const totalPrimaryPages = p1PrimaryDoc ? detectTotalPages(p1PrimaryDoc, p1PrimaryText) : 1;
+                const totalSecondaryPages = p1SecondaryDoc ? detectTotalPages(p1SecondaryDoc, p1SecondaryText) : 1;
+
+                const primaryHtmlTexts = p1PrimaryText ? [p1PrimaryText] : [];
+                const secondaryHtmlTexts = p1SecondaryText ? [p1SecondaryText] : [];
+
+                const hasMorePages = totalPrimaryPages > 1 || totalSecondaryPages > 1;
+
+                // Vytvoříme slot pro filtr a kontejner pro mřížku
+                const filterSlot = document.createElement('div');
+                filterSlot.className = 'lcp-brand-filter-slot';
+
+                if (mainGrid) {
+                    productsContainer.innerHTML = '';
+                    productsContainer.appendChild(filterSlot);
+                    productsContainer.appendChild(mainGrid);
+
+                    // Sestavíme filtr značek IHNED v Dávce 1 – pozice i mřížka jsou ihned stabilní a stránka neposkočí!
+                    buildAndRenderBrandFilter(mainGrid, dynamicManufacturers, filterSlot);
+
+                    renderBottomNav(productsContainer);
+                    document.dispatchEvent(new CustomEvent('ShoptetDOMPageContentLoaded'));
+                    checkAndRestoreScroll(!hasMorePages);
+                } else if (!hasMorePages) {
+                    productsContainer.innerHTML = '<div class="routine-placeholder">V této kategorii momentálně nejsou žádné produkty.</div>';
+                    renderBottomNav(productsContainer);
+                    return;
+                }
+
+                // Pokud nejsou žádné další stránky, uložíme do cache a máme hotovo
+                if (!hasMorePages) {
+                    if (p1PrimaryText) categoryHtmlCache.set(primaryUrl, primaryHtmlTexts);
+                    if (hasSecondary && p1SecondaryText) categoryHtmlCache.set(secondaryUrl, secondaryHtmlTexts);
+                    categoryParsedCache.set(cacheKey, {
+                        grid: mainGrid ? mainGrid.cloneNode(true) : null,
+                        manufacturers: [...dynamicManufacturers]
+                    });
+                    return;
+                }
+
+                // =========================================================================
+                // DÁVKA 2 (Na pozadí): Dotahování zbylých stránek + plynulá aktualizace počtů
+                // =========================================================================
+                const bgPromises = [];
+
+                // Zbylé stránky pro primární kategorii
+                if (totalPrimaryPages > 1) {
+                    for (let p = 2; p <= totalPrimaryPages; p++) {
+                        const pageUrl = getPageUrl(primaryUrl, p);
+                        bgPromises.push(
+                            fetch(pageUrl)
+                                .then(r => r.ok ? r.text() : '')
+                                .then(txt => ({ type: 'primary', text: txt }))
+                                .catch(() => ({ type: 'primary', text: '' }))
+                        );
+                    }
+                }
+
+                // Zbylé stránky pro sekundární kategorii
+                if (hasSecondary && totalSecondaryPages > 1) {
+                    for (let p = 2; p <= totalSecondaryPages; p++) {
+                        const pageUrl = getPageUrl(secondaryUrl, p);
+                        bgPromises.push(
+                            fetch(pageUrl)
+                                .then(r => r.ok ? r.text() : '')
+                                .then(txt => ({ type: 'secondary', text: txt }))
+                                .catch(() => ({ type: 'secondary', text: '' }))
+                        );
+                    }
+                }
+
+                const bgResults = await Promise.all(bgPromises);
+
+                // Pokud uživatel mezitím přešel na jiný krok, zahodíme data na pozadí
+                if (requestId !== currentRequestId) return;
+
+                bgResults.forEach(item => {
+                    if (!item.text) return;
+                    if (item.type === 'primary') primaryHtmlTexts.push(item.text);
+                    if (item.type === 'secondary') secondaryHtmlTexts.push(item.text);
+
+                    const doc = parser.parseFromString(item.text, 'text/html');
+                    mainGrid = extractProductsFromDoc(doc, mainGrid, seenProductKeys, dynamicManufacturers, seenManufIds);
+                });
+
+                if (requestId !== currentRequestId) return;
+
+                // Uložíme kompletní načtené stránky do cache pro příště
+                if (primaryHtmlTexts.length > 0) categoryHtmlCache.set(primaryUrl, primaryHtmlTexts);
+                if (hasSecondary && secondaryHtmlTexts.length > 0) categoryHtmlCache.set(secondaryUrl, secondaryHtmlTexts);
+                categoryParsedCache.set(cacheKey, {
+                    grid: mainGrid ? mainGrid.cloneNode(true) : null,
+                    manufacturers: [...dynamicManufacturers]
+                });
+
+                // Pokud jsme v Dávce 1 ještě neměli mřížku (byla prázdná), vložíme ji teď
+                if (!productsContainer.contains(mainGrid) && mainGrid) {
+                    productsContainer.innerHTML = '';
+                    productsContainer.appendChild(filterSlot);
+                    productsContainer.appendChild(mainGrid);
+                }
+
+                // DÁVKA 2 DOKONČENA: Plynule aktualizujeme počty a filtr na místě (bez smazání DOMu, bez poskoku)
+                if (mainGrid) {
+                    buildAndRenderBrandFilter(mainGrid, dynamicManufacturers, filterSlot);
+                    const existingNav = productsContainer.querySelector('.lcp-bottom-nav');
+                    if (existingNav) {
+                        productsContainer.appendChild(existingNav);
+                    } else {
+                        renderBottomNav(productsContainer);
+                    }
+                    document.dispatchEvent(new CustomEvent('ShoptetDOMPageContentLoaded'));
+                    checkAndRestoreScroll(true);
+                } else {
+                    productsContainer.innerHTML = '<div class="routine-placeholder">V této kategorii momentálně nejsou žádné produkty.</div>';
+                    renderBottomNav(productsContainer);
+                }
+
+            } catch (error) {
+                console.error('Chyba při stahování produktů:', error);
+                if (requestId === currentRequestId) {
+                    productsContainer.innerHTML = '<div class="routine-error">Produkty se nepodařilo načíst. Zkontrolujte prosím URL odkaz kategorie.</div>';
+                    renderBottomNav(productsContainer);
+                }
+            }
+        }
+
+        // 6. Konfigurace a obsluha podkategorií (Lepení řas, Tvary natáček)
+        const STEP_SUBCATEGORIES = {
+            'natacky': {
+                title: 'Zvolte požadovaný tvar natáček:',
+                stepNames: ['Natáčky', 'natacky'],
+                type: 'cards', // Zobrazení jako karty s ikonou/obrázkem tvaru
+                cta: {
+                    text: 'Online kurz: Architektura natáček',
+                    url: 'https://www.onlinekosmetickekurzy.cz/kurzy/architektura-natacek-na-lash-lifting/',
+                    title: 'Přejít na online kurz Architektura natáček na onlinekosmetickekurzy.cz'
+                },
+                items: [
+                    {
+                        id: 'all',
+                        name: 'Všechny tvary',
+                        url: 'https://www.depilujeme.cz/natacky-na-lash-lifting/',
+                        icon: '' // Zde lze vložit URL obrázku tvaru
+                    },
+                    {
+                        id: 'kulate',
+                        name: 'Kulaté',
+                        url: 'https://www.depilujeme.cz/natacky-lash-lifting-kulate/',
+                        icon: ''
+                    },
+                    {
+                        id: 'ploche',
+                        name: 'Ploché',
+                        url: 'https://www.depilujeme.cz/natacky-lash-lifting-ploche/',
+                        icon: ''
+                    },
+                    {
+                        id: 'kapka',
+                        name: 'Kapka',
+                        url: 'https://www.depilujeme.cz/natacky-lash-lifting-kapka/',
+                        icon: ''
+                    },
+                    {
+                        id: 'hybridni',
+                        name: 'Hybridní',
+                        url: 'https://www.depilujeme.cz/natacky-lash-lifting-hybridni/',
+                        icon: ''
+                    },
+                    {
+                        id: 'trojuhelnikove',
+                        name: 'Trojúhelníkové',
+                        url: 'https://www.depilujeme.cz/natacky-lash-lifting-trojuhelnikove/',
+                        icon: ''
+                    },
+                    {
+                        id: 'korejske',
+                        name: 'Korejské',
+                        url: 'https://www.depilujeme.cz/natacky-lash-lifting-asijske/',
+                        icon: ''
+                    },
+                    {
+                        id: 'spodni-rasy',
+                        name: 'Spodní řasy',
+                        url: 'https://www.depilujeme.cz/natacky-lash-lifting-na-spodni-rasy/',
+                        icon: ''
+                    }
+                ]
+            },
+            'lepeni-ras': {
+                title: 'Zvolte typ přípravku pro lepení:',
+                stepNames: ['Lepení řas', 'lepeni-ras', 'lepeni'],
+                type: 'pills', // Zobrazení jako elegantní pilulky
+                items: [
+                    {
+                        id: 'all',
+                        name: 'Všechny typy',
+                        url: 'https://www.depilujeme.cz/lepidla-na-lash-lifting--laminaci/',
+                        icon: ''
+                    },
+                    {
+                        id: 'lepidla',
+                        name: 'Lepidla',
+                        url: 'https://www.depilujeme.cz/lepidla-na-lash-lifting/',
+                        icon: ''
+                    },
+                    {
+                        id: 'balzamy',
+                        name: 'Lepicí balzámy',
+                        url: 'https://www.depilujeme.cz/lepici-balzamy-na-lash-lifting/',
+                        icon: ''
+                    },
+                    {
+                        id: 'prasky',
+                        name: 'Pudry (prášky)',
+                        url: 'https://www.depilujeme.cz/lepici-prasky-na-lash-lifting/',
+                        icon: ''
+                    }
+                ]
+            },
+            '1-krok': {
+                title: 'Zvolte typ přípravku pro 1. krok:',
+                stepNames: ['1-krok', 'krok-1'],
+                type: 'pills', // Zobrazení jako elegantní pilulky (stejný styl jako u lepení)
+                items: [
+                    {
+                        id: 'all',
+                        name: 'Všechny typy',
+                        url: 'https://www.depilujeme.cz/1--krok/',
+                        icon: ''
+                    },
+                    {
+                        id: 'tga',
+                        name: 'TGA',
+                        url: 'https://www.depilujeme.cz/prvni-krok-lash-liftingu-tga/',
+                        icon: ''
+                    },
+                    {
+                        id: 'cysteamine',
+                        name: 'Cysteamine',
+                        url: 'https://www.depilujeme.cz/prvni-krok-lash-liftingu-cysteamine/',
+                        icon: ''
+                    },
+                    {
+                        id: 'jednokrokovy',
+                        name: 'Jednokrokový',
+                        url: 'https://www.depilujeme.cz/prvni-krok-lash-liftingu-jednokrokovy/',
+                        icon: ''
+                    }
+                ]
+            }
+        };
+
+        function renderSubcategoryIcon(item) {
+            if (item.icon && item.icon.trim() !== '') {
+                return `<img src="${item.icon}" alt="${item.name}" class="lcp-subcat-img" />`;
+            }
+            // Vkusné SVG ikony tvarů jako výchozí stav před dodáním obrázků (opticky sjednocená velikost)
+            switch (item.id) {
+                case 'all':
+                    return `<svg viewBox="0 0 24 24" fill="currentColor">
+                        <rect x="3.5" y="3.5" width="7" height="7" rx="2"></rect>
+                        <rect x="13.5" y="3.5" width="7" height="7" rx="2"></rect>
+                        <rect x="13.5" y="13.5" width="7" height="7" rx="2"></rect>
+                        <rect x="3.5" y="13.5" width="7" height="7" rx="2"></rect>
+                    </svg>`;
+                case 'kulate':
+                    return `<svg viewBox="4 1 13 22" fill="currentColor">
+                        <path d="M6 2 A10 10 0 0 1 6 22 Z"></path>
+                    </svg>`;
+                case 'ploche':
+                    return `<svg viewBox="6 1 10 22" fill="currentColor">
+                        <path d="M8 2 C14.5 7 14.5 17 8 22 Z"></path>
+                    </svg>`;
+                case 'kapka':
+                    return `<svg viewBox="6 1 10 22" fill="currentColor">
+                        <path d="M8 2 C9.2 2.5 9.8 4.7 10.5 7 L12.8 14.7 C14 18.8 12.1 22 8 22 Z"></path>
+                    </svg>`;
+                case 'hybridni':
+                    return `<svg viewBox="5 1 11 22" fill="currentColor">
+                        <path d="M7 2 H10 Q14 2 14 6 V18 Q14 22 10 22 H7 Z"></path>
+                    </svg>`;
+                case 'trojuhelnikove':
+                    return `<svg viewBox="5 1 12 22" fill="currentColor">
+                        <path d="M7 2 L15 19 C15.5 21 13.5 22 11 22 H7 Z"></path>
+                    </svg>`;
+                case 'korejske':
+                    return `<svg viewBox="5 1 12 22" fill="currentColor">
+                        <path d="M7 2 C9 6 10 12 11 16 L15 20 C15.5 21.5 13.5 22 11 22 H7 Z"></path>
+                    </svg>`;
+                case 'spodni-rasy':
+                    return `<svg viewBox="6 3 9 18" fill="currentColor">
+                        <path d="M8 5 C13 9 13 15 8 19 Z"></path>
+                    </svg>`;
+                default:
+                    return `<svg viewBox="0 0 24 24" fill="currentColor">
+                        <circle cx="12" cy="12" r="7.5"></circle>
+                    </svg>`;
+            }
+        }
+
+        function findSubcategoriesForStep(stepElement) {
+            if (!stepElement) return null;
+            const stepId = (stepElement.getAttribute('data-step-id') || '').toLowerCase().trim();
+            const stepName = (stepElement.getAttribute('data-name') || '').toLowerCase().trim();
+            for (const key of Object.keys(STEP_SUBCATEGORIES)) {
+                const conf = STEP_SUBCATEGORIES[key];
+                if (stepId && key === stepId) return conf;
+                if (stepId && conf.stepNames.some(sn => sn.toLowerCase() === stepId)) return conf;
+                if (!stepId && conf.stepNames.some(sn => sn.toLowerCase() === stepName)) return conf;
+            }
+            return null;
+        }
+
+        let activeSubcatId = 'all';
+
+        // Pomocná funkce pro obnovu pozice scrollu po přechodu na produkt a zpět
+        function checkAndRestoreScroll(isFinal = false) {
+            try {
+                const savedScrollY = sessionStorage.getItem('lcp_saved_scroll_y');
+                if (savedScrollY !== null) {
+                    const targetY = parseInt(savedScrollY, 10);
+                    if (!isNaN(targetY) && targetY > 0) {
+                        requestAnimationFrame(() => {
+                            window.scrollTo({
+                                top: targetY,
+                                behavior: 'instant'
+                            });
+                        });
+                    }
+                    if (isFinal) {
+                        setTimeout(() => {
+                            sessionStorage.removeItem('lcp_saved_scroll_y');
+                        }, 500);
+                    }
+                }
+            } catch (e) {}
+        }
+
+        // Zaznamenání pozice scrollu při kliknutí na jakýkoliv produkt v mřížce
+        if (productsContainer) {
+            productsContainer.addEventListener('click', (e) => {
+                const link = e.target.closest('a');
+                if (link && link.href && !link.href.startsWith('javascript:')) {
+                    try {
+                        const y = window.pageYOffset || window.scrollY || document.documentElement.scrollTop || 0;
+                        sessionStorage.setItem('lcp_saved_scroll_y', String(y));
+                        if (window.location.hash) {
+                            sessionStorage.setItem('lcp_last_hash', window.location.hash);
+                        }
+                    } catch (err) {}
+                }
+            });
+        }
+
+        window.addEventListener('pagehide', () => {
+            try {
+                const y = window.pageYOffset || window.scrollY || document.documentElement.scrollTop || 0;
+                sessionStorage.setItem('lcp_saved_scroll_y', String(y));
+                if (window.location.hash) {
+                    sessionStorage.setItem('lcp_last_hash', window.location.hash);
+                }
+            } catch (err) {}
+        });
+
+        function renderSubcategories(subcatConfig, preferredSubcatId = 'all', stepSlug = '') {
+            if (!subcategoriesBar || !subcatItemsWrap) return;
+            if (!subcatConfig) {
+                subcategoriesBar.style.display = 'none';
+                return;
+            }
+
+            if (subcatTitleText) {
+                subcatTitleText.textContent = subcatConfig.title || 'Upřesnit výběr:';
+            }
+
+            if (subcatHeaderCta) {
+                if (subcatConfig.cta && subcatConfig.cta.url) {
+                    const ctaTitle = subcatConfig.cta.title || `Přejít na kurz ${subcatConfig.cta.text} (onlinekosmetickekurzy.cz)`;
+                    subcatHeaderCta.innerHTML = `
+                    <a href="${subcatConfig.cta.url}" target="_blank" rel="noopener" class="lcp-subcat-cta-header-btn" title="${ctaTitle}" aria-label="${ctaTitle}">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+                            <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+                        </svg>
+                        <span>${subcatConfig.cta.text}</span>
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                            <polyline points="12 5 19 12 12 19"></polyline>
+                        </svg>
+                    </a>`;
+                    subcatHeaderCta.style.display = 'block';
+                } else {
+                    subcatHeaderCta.innerHTML = '';
+                    subcatHeaderCta.style.display = 'none';
+                }
+            }
+
+            subcatItemsWrap.innerHTML = '';
+            
+            // Ověříme, zda preferredSubcatId existuje v konfiguraci
+            const hasPreferred = subcatConfig.items.some(it => it.id === preferredSubcatId);
+            activeSubcatId = hasPreferred ? preferredSubcatId : (subcatConfig.items[0] ? subcatConfig.items[0].id : 'all');
+
+            const isCards = subcatConfig.type === 'cards';
+            subcatItemsWrap.className = 'lcp-subcat-items ' + (isCards ? 'is-cards-grid' : 'is-pills-wrap');
+
+            subcatConfig.items.forEach(item => {
+                const btn = document.createElement('button');
+                btn.type = 'button';
+                btn.setAttribute('data-subcat-id', item.id);
+
+                if (isCards) {
+                    btn.className = 'lcp-subcat-card' + (item.id === activeSubcatId ? ' is-active' : '');
+                    btn.innerHTML = `
+                    <div class="lcp-subcat-icon-box">
+                        ${renderSubcategoryIcon(item)}
+                    </div>
+                    <span class="lcp-subcat-label">${item.name}</span>
+                `;
+                } else {
+                    btn.className = 'lcp-subcat-pill' + (item.id === activeSubcatId ? ' is-active' : '');
+                    btn.innerHTML = `<span>${item.name}</span>`;
+                }
+
+                btn.addEventListener('click', () => {
+                    if (activeSubcatId === item.id) return;
+                    activeSubcatId = item.id;
+
+                    const allBtns = subcatItemsWrap.querySelectorAll('.lcp-subcat-pill, .lcp-subcat-card');
+                    allBtns.forEach(b => {
+                        b.classList.toggle('is-active', b.getAttribute('data-subcat-id') === activeSubcatId);
+                    });
+
+                    try {
+                        sessionStorage.removeItem('lcp_saved_scroll_y');
+                        const currentSlug = stepSlug || getStepSlug(currentActiveStep);
+                        sessionStorage.setItem('lcp_subcat_' + currentSlug, item.id);
+                        const activeTabKey = (views.brow && views.brow.classList.contains('is-visible')) ? 'brow' : 'lash';
+                        const subSuffix = (item.id && item.id !== 'all') ? `--${item.id}` : '';
+                        const targetHash = `#${activeTabKey}-${currentSlug}${subSuffix}`;
+                        history.replaceState(null, '', targetHash);
+                        sessionStorage.setItem('lcp_last_hash', targetHash);
+                    } catch (e) {}
+
+                    // Načteme produkty vybrané podkategorie
+                    loadCategoryProducts(item.url);
+                });
+
+                subcatItemsWrap.appendChild(btn);
+            });
+
+            subcategoriesBar.style.display = 'block';
+        }
+
+        function activateStep(view, step, instant = false, preferredSubcatId = null) {
+            currentActiveView = view;
+            currentActiveStep = step;
+            selectStep(view, step, instant);
+
+            const stepSlug = getStepSlug(step);
+            const activeTabKey = (views.brow && views.brow.classList.contains('is-visible')) ? 'brow' : 'lash';
+
+            if (!preferredSubcatId) {
+                try {
+                    preferredSubcatId = sessionStorage.getItem('lcp_subcat_' + stepSlug);
+                } catch (e) {}
+            }
+
+            // Aktualizace URL hashe (history.replaceState zabraňuje zahlcení historie)
+            try {
+                const subSuffix = (preferredSubcatId && preferredSubcatId !== 'all') ? `--${preferredSubcatId}` : '';
+                const targetHash = `#${activeTabKey}-${stepSlug}${subSuffix}`;
+                if (window.location.hash !== targetHash) {
+                    history.replaceState(null, '', targetHash);
+                }
+                sessionStorage.setItem('lcp_last_hash', targetHash);
+            } catch (e) {}
+
+            const anchor = step.querySelector('a');
+            const defaultUrl = anchor ? anchor.getAttribute('href') : null;
+            const secondaryUrl = anchor ? anchor.getAttribute('data-secondary-href') : null;
+
+            const subcatConfig = findSubcategoriesForStep(step);
+            if (subcatConfig) {
+                renderSubcategories(subcatConfig, preferredSubcatId, stepSlug);
+                // Načteme zvolenou podkategorii (nebo výchozí)
+                let targetItem = null;
+                if (preferredSubcatId) {
+                    targetItem = subcatConfig.items.find(it => it.id === preferredSubcatId);
+                }
+                if (!targetItem) {
+                    targetItem = subcatConfig.items[0];
+                }
+
+                if (targetItem && targetItem.url) {
+                    loadCategoryProducts(targetItem.url);
+                } else if (defaultUrl && defaultUrl !== '#') {
+                    loadCategoryProducts(defaultUrl, secondaryUrl);
+                }
+            } else {
+                if (subcategoriesBar) {
+                    subcategoriesBar.style.display = 'none';
+                }
+                if (defaultUrl && defaultUrl !== '#' && !defaultUrl.startsWith('javascript:')) {
+                    loadCategoryProducts(defaultUrl, secondaryUrl);
+                } else {
+                    productsContainer.innerHTML = '<div class="routine-placeholder">Pro tento krok zatím není nastavena kategorie produktů.</div>';
+                    renderBottomNav(productsContainer);
+                }
+            }
+        }
+
+        // 7. Nastavení posluchačů událostí pro danou proceduru
+        function setupView(view) {
+            if (!view) return;
+            ensureRoutineStructure(view);
+            const steps = Array.from(view.querySelectorAll('.lcp-step'));
+            steps.forEach(step => {
+                step.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    try {
+                        sessionStorage.removeItem('lcp_saved_scroll_y');
+                    } catch (err) {}
+                    activateStep(view, step, false);
+                });
+            });
+        }
+
+        setupView(views.lash);
+        setupView(views.brow);
+
+        // 8. Přepínání záložek (Lash Lifting vs Laminace obočí)
+        function switchTab(targetKey, updateHash = true) {
+            tabButtons.forEach(btn => {
+                const isTarget = btn.getAttribute('data-target') === targetKey;
+                btn.classList.toggle('is-active', isTarget);
+                btn.setAttribute('aria-selected', isTarget ? 'true' : 'false');
+            });
+
+            Object.keys(views).forEach(key => {
+                if (!views[key]) return;
+                const isTarget = key === targetKey;
+                views[key].classList.toggle('is-visible', isTarget);
+
+                // DŮLEŽITÉ: activateStep spouštíme POUZE při explicitním kliknutí na záložku (updateHash === true).
+                // Při volání z handleUrlHash (updateHash === false) nesmíme aktivovat první krok,
+                // protože by přepsal krok vybraný z URL hashe!
+                if (isTarget && updateHash) {
+                    ensureRoutineStructure(views[key]);
+                    const activeStep = views[key].querySelector('.lcp-step.lcp-active') || views[key].querySelector('.lcp-step');
+                    if (activeStep) {
+                        currentActiveIndex = Array.from(views[key].querySelectorAll('.lcp-step')).indexOf(activeStep);
+                        requestAnimationFrame(() => {
+                            activateStep(views[key], activeStep, true);
+                        });
+                    }
+                }
+            });
+
+            if (updateHash) {
+                try {
+                    const currentStep = views[targetKey] ? (views[targetKey].querySelector('.lcp-step.lcp-active') || views[targetKey].querySelector('.lcp-step')) : null;
+                    const stepSlug = currentStep ? getStepSlug(currentStep) : '';
+                    const newHash = `#${targetKey}${stepSlug ? '-' + stepSlug : ''}`;
+                    history.replaceState(null, '', newHash);
+                    sessionStorage.setItem('lcp_last_hash', newHash);
+                } catch (e) {}
+            }
+        }
+
+        tabButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const target = btn.getAttribute('data-target');
+                try {
+                    sessionStorage.removeItem('lcp_saved_scroll_y');
+                } catch (err) {}
+                if (target) switchTab(target, true);
+            });
+        });
+
+        // 9. Zpracování URL Hashe (Deep linking & historie prohlížeče)
+        function handleUrlHash(instant = true) {
+            let rawHash = (window.location.hash || '').replace(/^#/, '').trim();
+            if (!rawHash) {
+                try {
+                    const saved = sessionStorage.getItem('lcp_last_hash');
+                    if (saved) rawHash = saved.replace(/^#/, '').trim();
+                } catch (e) {}
+            }
+            if (!rawHash) return false;
+
+            let targetTab = 'lash';
+            let targetStepSlug = rawHash;
+
+            if (rawHash.startsWith('brow-')) {
+                targetTab = 'brow';
+                targetStepSlug = rawHash.replace(/^brow-/, '');
+            } else if (rawHash.startsWith('lash-')) {
+                targetTab = 'lash';
+                targetStepSlug = rawHash.replace(/^lash-/, '');
+            } else if (rawHash === 'brow' || rawHash === 'laminace-oboci') {
+                targetTab = 'brow';
+                targetStepSlug = '';
+            } else if (rawHash === 'lash' || rawHash === 'lash-lifting') {
+                targetTab = 'lash';
+                targetStepSlug = '';
+            }
+
+            // Extrakce případné podkategorie (např. lepeni-ras--balzamy)
+            let preferredSubcatId = null;
+            if (targetStepSlug.includes('--')) {
+                const parts = targetStepSlug.split('--');
+                targetStepSlug = parts[0];
+                preferredSubcatId = parts[1];
+            }
+
+            switchTab(targetTab, false);
+
+            const activeView = views[targetTab];
+            if (!activeView) return false;
+
+            ensureRoutineStructure(activeView);
+            const steps = Array.from(activeView.querySelectorAll('.lcp-step'));
+            if (steps.length === 0) return false;
+
+            if (targetStepSlug) {
+                const matched = steps.find(s => {
+                    const slug = getStepSlug(s);
+                    const dataNameSlug = slugify(s.getAttribute('data-name') || '');
+                    const anchor = s.querySelector('a');
+                    const href = anchor ? (anchor.getAttribute('href') || '') : '';
+                    const hrefSlug = slugify(href.replace(/\/+$/, '').split('/').pop() || '');
+                    return slug === targetStepSlug || dataNameSlug === targetStepSlug || hrefSlug === targetStepSlug;
+                });
+                if (matched) {
+                    activateStep(activeView, matched, instant, preferredSubcatId);
+                    return true;
+                }
+            }
+
+            const firstStep = steps[0];
+            if (firstStep) {
+                activateStep(activeView, firstStep, instant, preferredSubcatId);
+                return true;
+            }
+            return false;
+        }
+
+        // Posluchače historie prohlížeče (Zpět / Vpřed)
+        window.addEventListener('hashchange', () => handleUrlHash(false));
+        window.addEventListener('popstate', () => handleUrlHash(false));
+        window.addEventListener('pageshow', (event) => {
+            if (event.persisted) {
+                handleUrlHash(true);
+                checkAndRestoreScroll(true);
+            }
+        });
+
+        // Inicializace při načtení stránky
+        if (!handleUrlHash(true)) {
+            const defaultView = views.lash;
+            if (defaultView) {
+                ensureRoutineStructure(defaultView);
+                const firstStep = defaultView.querySelector('.lcp-step.lcp-active') || defaultView.querySelector('.lcp-step');
+                if (firstStep) {
+                    activateStep(defaultView, firstStep, true);
+                }
+            }
+        }
+
+        function refreshActiveLines() {
+            Object.keys(views).forEach(key => {
+                if (views[key] && views[key].classList.contains('is-visible')) {
+                    ensureRoutineStructure(views[key]);
+                    const active = views[key].querySelector('.lcp-step.lcp-active') || views[key].querySelector('.lcp-step');
+                    if (active) {
+                        const idx = Array.from(views[key].querySelectorAll('.lcp-step')).indexOf(active);
+                        updateLine(views[key], idx, 0);
+                    }
+                }
+            });
+        }
+
+        // Resize okna
+        window.addEventListener('resize', refreshActiveLines);
+
+        // Vícenásobný přepočet pro asynchronní načtení fontů, stylů a Shoptet komponent
+        requestAnimationFrame(refreshActiveLines);
+        setTimeout(refreshActiveLines, 100);
+        setTimeout(refreshActiveLines, 300);
+        setTimeout(refreshActiveLines, 800);
+        window.addEventListener('load', refreshActiveLines);
+        document.addEventListener('ShoptetDOMPageContentLoaded', refreshActiveLines);
+    }
+
+    // Spuštění inicializace ihned i při pozdním/asynchronním načtení v Shoptetu
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initLcpGuide);
+    } else {
+        initLcpGuide();
+    }
+</script>

@@ -1,0 +1,554 @@
+<!-- CSS pro popisy L.C.P. produktů + Časová osa z průvodce -->
+<style>
+    <!--
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap');
+
+    .lcp-box {
+        padding: 2em;
+        border-radius: 14px;
+        font-family: Arial, sans-serif;
+        color: #1a1a1a;
+        line-height: 1.8;
+        max-width: 100%;
+    }
+
+    /* Logo řady nad H2 */
+    .lcp-series-logo {
+        display: block;
+        max-width: 70px;
+        /* výrazně menší */
+        height: auto;
+        margin-bottom: 0.8em;
+    }
+
+    /* Wrapper pro nadpisovou část */
+    .lcp-header {
+        margin-bottom: 1.2em;
+    }
+
+    /* Upravený H2 */
+    .lcp-box h2 {
+        font-size: 20pt !important;
+        font-weight: 600;
+        letter-spacing: 0.5px;
+        margin: 0;
+        padding-bottom: 0.6em;
+        border-bottom: 1px solid #e6e2dc;
+        color: #1a1a1a;
+    }
+
+    .lcp-box p {
+        font-size: 12pt;
+    }
+
+    .lcp-box ul {
+        padding-left: 1.2em;
+    }
+
+    .lcp-section {
+        margin-top: 2em;
+    }
+
+    .lcp-section-title {
+        font-size: 1.3em;
+        font-weight: bold;
+        margin-bottom: 0.5em;
+        border-left: 4px solid #d8c9b6;
+        padding-left: 0.5em;
+    }
+
+    .lcp-highlight {
+        background: #fff;
+        border-left: 4px solid #d8c9b6;
+        padding: 1em;
+        margin: 1em 0;
+        font-size: 0.95em;
+        color: #333;
+    }
+
+    .lcp-icon-list {
+        display: flex;
+        flex-direction: column;
+        gap: 0.8em;
+        margin: 1em 0;
+    }
+
+    .lcp-icon-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 0.8em;
+    }
+
+    .lcp-icon-item img {
+        width: 28px;
+        height: 28px;
+        flex-shrink: 0;
+        margin-top: 2px;
+    }
+
+    .lcp-pro-box {
+        background-color: #eaf7ff;
+        border-left: 5px solid #3a91d8;
+        padding: 1em;
+        border-radius: 6px;
+        color: #0d3a5c;
+        margin-top: 1.5em;
+    }
+
+    .lcp-warning {
+        background-color: #fff4f4;
+        border-left: 5px solid #c62828;
+        padding: 1em;
+        border-radius: 6px;
+        color: #8b0000;
+        margin-top: 1em;
+    }
+
+    .lcp-brand-contact {
+        display: flex;
+        align-items: center;
+        gap: 1em;
+        flex-wrap: wrap;
+        border-top: 1px solid #ccc;
+        padding-top: 1.5em;
+        margin-top: 2em;
+    }
+
+    .lcp-brand-contact img {
+        width: 90px;
+        border-radius: 10px;
+    }
+
+    .lcp-brand-contact .text {
+        flex: 1;
+        min-width: 200px;
+    }
+
+    .lcp-brand-contact p {
+        margin: 0.3em 0;
+    }
+
+    .lcp-box a {
+        color: #3a91d8;
+        text-decoration: none;
+    }
+
+    .lcp-box a:hover {
+        text-decoration: underline;
+    }
+
+    .lcp-made-fr {
+        margin: 1.5em 0;
+        padding-top: 0.8em;
+        border-top: 1px solid #d8c9b6;
+        font-weight: 600;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+    }
+
+    .lcp-routine-label {
+        font-family: 'Montserrat', sans-serif !important;
+        font-size: 11px !important;
+        font-weight: 700 !important;
+        text-transform: uppercase !important;
+        letter-spacing: 0.1em !important;
+        color: #eb6c7d !important;
+        margin: 0 0 10px 0 !important;
+        text-align: left !important;
+        display: block !important;
+    }
+
+    /* CSS pro interaktivního průvodce z pruvodce.html */
+    #lcp-routine-container.lcp-routine-wrapper {
+        position: relative;
+        background: transparent !important;
+        border: none !important;
+        border-radius: 0 !important;
+        padding: 10px 15px 20px 15px !important;
+        max-width: 100% !important;
+        margin: 0 auto 24px auto !important;
+        box-shadow: none !important;
+        overflow-x: auto;
+        overflow-y: hidden;
+        box-sizing: border-box;
+
+        /* Custom Scrollbar pro úzké obrazovky */
+        scrollbar-width: thin;
+        scrollbar-color: #fcdade transparent;
+    }
+
+    #lcp-routine-container.lcp-routine-wrapper::-webkit-scrollbar {
+        height: 5px;
+    }
+
+    #lcp-routine-container.lcp-routine-wrapper::-webkit-scrollbar-track {
+        background: transparent !important;
+        border-radius: 10px;
+    }
+
+    #lcp-routine-container.lcp-routine-wrapper::-webkit-scrollbar-thumb {
+        background: #fcdade;
+        border-radius: 10px;
+        transition: background 0.3s ease;
+    }
+
+    #lcp-routine-container.lcp-routine-wrapper::-webkit-scrollbar-thumb:hover {
+        background: #eb6c7d;
+    }
+
+    #lcp-routine-container .lcp-routine-inner {
+        position: relative !important;
+        width: 100% !important;
+        min-width: 0 !important;
+        display: block !important;
+    }
+
+    /* Osa rutiny */
+    #lcp-routine-container .lcp-routine-line {
+        position: absolute !important;
+        left: 4.545% !important;
+        right: 4.545% !important;
+        bottom: 11px !important;
+        height: 4px !important;
+        background: #fcdade !important;
+        border-radius: 20px !important;
+        z-index: 1 !important;
+    }
+
+    #lcp-routine-container .lcp-routine-line-fill {
+        position: absolute !important;
+        left: 0 !important;
+        top: 0 !important;
+        bottom: 0 !important;
+        background: linear-gradient(90deg, #f39aa5 0%, #eb6c7d 100%) !important;
+        border-radius: 20px !important;
+        width: 0% !important;
+        transition: width 0.16s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    }
+
+    #lcp-routine-container .lcp-routine-steps {
+        position: relative;
+        z-index: 2;
+        display: grid;
+        grid-template-columns: repeat(var(--steps-count, 10), 1fr);
+        align-items: end;
+        width: 100%;
+    }
+
+    /* Jednotlivý krok */
+    #lcp-routine-container .lcp-step {
+        position: relative !important;
+        text-align: center !important;
+        color: #2b2b2b !important;
+        font-family: 'Montserrat', sans-serif !important;
+        font-size: 10px !important;
+        font-weight: 500 !important;
+        line-height: 1.3 !important;
+        min-height: 80px !important;
+        min-width: 0 !important;
+        padding: 10px 1px 30px !important;
+        box-sizing: border-box !important;
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: center !important;
+        align-items: center !important;
+        cursor: pointer !important;
+        transition: transform 0.3s ease !important;
+        animation: fadeInStep 0.6s ease both;
+    }
+
+    #lcp-routine-container .lcp-step:hover {
+        transform: translateY(-2px) !important;
+    }
+
+    /* Vnitřní odkaz v kroku */
+    #lcp-routine-container .lcp-step a {
+        text-decoration: none !important;
+        color: inherit !important;
+        display: block !important;
+        width: 100% !important;
+        height: 100% !important;
+        position: relative !important;
+        z-index: 2 !important;
+        cursor: pointer !important;
+        font-size: 11px !important;
+    }
+
+    #lcp-routine-container .lcp-step span {
+        color: #4a4a4a !important;
+        transition: color 0.3s ease !important;
+        display: block !important;
+        font-size: 11px !important;
+    }
+
+    /* Kulička na ose */
+    #lcp-routine-container .lcp-dot {
+        width: 10px !important;
+        height: 10px !important;
+        background: #eb6c7d !important;
+        border: 3px solid #fffbfb !important;
+        border-radius: 50% !important;
+        box-sizing: content-box !important;
+        position: absolute !important;
+        bottom: 5px !important;
+        left: 0 !important;
+        right: 0 !important;
+        margin: 0 auto !important;
+        transition: width 0.25s cubic-bezier(0.34, 1.56, 0.64, 1),
+            height 0.25s cubic-bezier(0.34, 1.56, 0.64, 1),
+            bottom 0.25s cubic-bezier(0.34, 1.56, 0.64, 1),
+            background 0.25s ease,
+            border-color 0.25s ease,
+            box-shadow 0.25s ease !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        box-shadow: 0 1px 3px rgba(235, 108, 125, 0.1) !important;
+        z-index: 2 !important;
+    }
+
+    /* 1. STAV: Dokončené kroky */
+    #lcp-routine-container .lcp-step.lcp-completed span {
+        color: #555555 !important;
+        font-weight: 500 !important;
+    }
+
+    #lcp-routine-container .lcp-step.lcp-completed .lcp-dot {
+        background: #f5b3be !important;
+        border: 3px solid #fffbfb !important;
+        width: 14px !important;
+        height: 14px !important;
+        bottom: 3px !important;
+        box-shadow: 0 1px 3px rgba(245, 179, 190, 0.08) !important;
+    }
+
+    /* 2. STAV: Aktivní krok */
+    #lcp-routine-container .lcp-step.lcp-active {
+        transform: translateY(-2px) scale(1.03) !important;
+    }
+
+    #lcp-routine-container .lcp-step.lcp-active span {
+        font-weight: 700 !important;
+        color: #eb6c7d !important;
+    }
+
+    #lcp-routine-container .lcp-step.lcp-active .lcp-dot {
+        background: linear-gradient(135deg, #ff8a9a 0%, #eb6c7d 100%) !important;
+        border: 4px solid #fffbfb !important;
+        width: 20px !important;
+        height: 20px !important;
+        bottom: -1px !important;
+        animation: pulseDot 1.8s ease-in-out 0.3s infinite !important;
+        box-shadow: 0 4px 12px rgba(235, 108, 125, 0.35) !important;
+    }
+
+    /* 3. STAV: Budoucí kroky */
+    #lcp-routine-container .lcp-step.lcp-upcoming span {
+        color: #8a8a8a !important;
+        font-weight: 400 !important;
+    }
+
+    #lcp-routine-container .lcp-step.lcp-upcoming .lcp-dot {
+        background: #fcdade !important;
+        border: 3px solid #fffbfb !important;
+        width: 10px !important;
+        height: 10px !important;
+        bottom: 5px !important;
+    }
+
+    /* Zpoždění animací pro efekt vlny */
+    #lcp-routine-container .lcp-step:nth-child(1) {
+        animation-delay: 0.05s !important;
+    }
+
+    #lcp-routine-container .lcp-step:nth-child(2) {
+        animation-delay: 0.10s !important;
+    }
+
+    #lcp-routine-container .lcp-step:nth-child(3) {
+        animation-delay: 0.15s !important;
+    }
+
+    #lcp-routine-container .lcp-step:nth-child(4) {
+        animation-delay: 0.20s !important;
+    }
+
+    #lcp-routine-container .lcp-step:nth-child(5) {
+        animation-delay: 0.25s !important;
+    }
+
+    #lcp-routine-container .lcp-step:nth-child(6) {
+        animation-delay: 0.30s !important;
+    }
+
+    #lcp-routine-container .lcp-step:nth-child(7) {
+        animation-delay: 0.35s !important;
+    }
+
+    #lcp-routine-container .lcp-step:nth-child(8) {
+        animation-delay: 0.40s !important;
+    }
+
+    #lcp-routine-container .lcp-step:nth-child(9) {
+        animation-delay: 0.45s !important;
+    }
+
+    #lcp-routine-container .lcp-step:nth-child(10) {
+        animation-delay: 0.50s !important;
+    }
+
+    @keyframes fadeInStep {
+        from {
+            opacity: 0;
+            transform: translateY(4px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    @keyframes pulseDot {
+        0% {
+            transform: scale(1);
+            box-shadow: 0 0 0 0 rgba(235, 108, 125, 0.45);
+        }
+
+        50% {
+            transform: scale(1.15);
+            box-shadow: 0 0 0 4px rgba(235, 108, 125, 0.15);
+        }
+
+        100% {
+            transform: scale(1);
+            box-shadow: 0 0 0 0 rgba(235, 108, 125, 0);
+        }
+    }
+
+    @media (max-width: 768px) {
+        #lcp-routine-container.lcp-routine-wrapper {
+            padding: 10px 5px 20px !important;
+        }
+
+        #lcp-routine-container .lcp-routine-inner {
+            min-width: max-content !important;
+        }
+
+        #lcp-routine-container .lcp-step {
+            min-height: 80px !important;
+            min-width: 70px !important;
+            padding: 10px 2px 30px !important;
+        }
+
+        #lcp-routine-container .lcp-step a,
+        #lcp-routine-container .lcp-step span {
+            font-size: 11px !important;
+        }
+    }
+    -->
+</style>
+<div class="lcp-box">
+    <!-- Štítek s kontextem -->
+    <div class="lcp-routine-label">Krok v kosmetické rutině:</div>
+
+    <!-- Časová osa z průvodce - 10 kroků -->
+    <div class="lcp-routine-wrapper" id="lcp-routine-container">
+        <div class="lcp-routine-inner">
+
+            <div class="lcp-routine-line">
+                <div class="lcp-routine-line-fill"></div>
+            </div>
+
+            <div class="lcp-routine-steps">
+
+                <!-- 1. Čištění a odličování pleti -->
+                <div class="lcp-step{{CISTENI}}">
+                    <a href="/cisteni-a-odlicovani-pleti-lcp-paris/"
+                       data-secondary-href="https://www.depilujeme.cz/cisteni-a-odlicovani-pleti-lcp-paris-oligodermie/">
+                        <span>Odličování<br />pleti</span>
+                    </a>
+                    <div class="lcp-dot">&nbsp;</div>
+                </div>
+
+                <!-- 2. Peeling -->
+                <div class="lcp-step{{PEELING}}">
+                    <a href="/peeling-lcp-paris/"
+                       data-secondary-href="https://www.depilujeme.cz/peeling-lcp-paris-oligodermie/">
+                        <span>Peeling</span>
+                    </a>
+                    <div class="lcp-dot">&nbsp;</div>
+                </div>
+
+                <!-- 3. Tonikum -->
+                <div class="lcp-step{{TONIKUM}}">
+                    <a href="/tonikum-lcp-paris/">
+                        <span>Tonikum</span>
+                    </a>
+                    <div class="lcp-dot">&nbsp;</div>
+                </div>
+
+                <!-- 4. Séra -->
+                <div class="lcp-step{{SERA}}">
+                    <a href="/sera-lcp-paris/"
+                       data-secondary-href="https://www.depilujeme.cz/sera-lcp-paris-oligodermie/">
+                        <span>Sérum /<br />Ampule</span>
+                    </a>
+                    <div class="lcp-dot">&nbsp;</div>
+                </div>
+
+                <!-- 5. Masáž -->
+                <div class="lcp-step{{MASAZ}}">
+                    <a href="/masaz-obliceje-lcp-paris/">
+                        <span>Masážní<br />přípravky</span>
+                    </a>
+                    <div class="lcp-dot">&nbsp;</div>
+                </div>
+
+                <!-- 6. Masky -->
+                <div class="lcp-step{{MASKY}}">
+                    <a href="/masky-lcp-paris/"
+                       data-secondary-href="https://www.depilujeme.cz/masky-lcp-paris-oligodermie/">
+                        <span>Masky</span>
+                    </a>
+                    <div class="lcp-dot">&nbsp;</div>
+                </div>
+
+                <!-- 7. Péče o oční okolí -->
+                <div class="lcp-step{{OCI}}">
+                    <a href="/pece-o-ocni-okoli-lcp-paris/"
+                       data-secondary-href="https://www.depilujeme.cz/pece-o-ocni-okoli/">
+                        <span>Oční<br />krémy</span>
+                    </a>
+                    <div class="lcp-dot">&nbsp;</div>
+                </div>
+
+                <!-- 8. Krémy -->
+                <div class="lcp-step{{KREMY}}">
+                    <a href="/kremy-lcp-paris/"
+                       data-secondary-href="https://www.depilujeme.cz/kremy-lcp-paris-oligodermie/">
+                        <span>Krémy a<br />SPF</span>
+                    </a>
+                    <div class="lcp-dot">&nbsp;</div>
+                </div>
+
+                <!-- 9. Chemický peeling -->
+                <div class="lcp-step{{CHEMICKY_PEELING}}">
+                    <a href="/chemicky-peeling-lcp-paris/">
+                        <span>Chemický<br />peeling</span>
+                    </a>
+                    <div class="lcp-dot">&nbsp;</div>
+                </div>
+
+                <!-- 10. Doplňky -->
+                <div class="lcp-step{{DOPLNKY}}">
+                    <a href="/doplnky-lcp-paris/"
+                       data-secondary-href="https://www.depilujeme.cz/masaz-obliceje-lcp-paris-oligodermie/">
+                        <span>Doplňky</span>
+                    </a>
+                    <div class="lcp-dot">&nbsp;</div>
+                </div>
+
+            </div>
+        </div>
+    </div>
