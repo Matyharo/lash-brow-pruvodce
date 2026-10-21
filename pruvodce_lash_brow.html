@@ -1975,8 +1975,14 @@
                     </div>
                 `;
                 prevBtn.addEventListener('click', () => {
-                    try { sessionStorage.removeItem('lcp_saved_scroll_y'); } catch(e){}
-                    activateStep(currentActiveView, prevStep, false);
+                    try {
+                        sessionStorage.removeItem('lcp_saved_scroll_y');
+                        sessionStorage.removeItem('lcp_saved_brand');
+                        sessionStorage.removeItem('lcp_is_returning_from_product');
+                        const prevSlug = getStepSlug(prevStep);
+                        sessionStorage.removeItem('lcp_subcat_' + prevSlug);
+                    } catch (e) {}
+                    activateStep(currentActiveView, prevStep, false, 'all');
                     scrollToGuideCard();
                 });
             }
@@ -2020,8 +2026,14 @@
                     </div>
                 `;
                 nextBtn.addEventListener('click', () => {
-                    try { sessionStorage.removeItem('lcp_saved_scroll_y'); } catch(e){}
-                    activateStep(currentActiveView, nextStep, false);
+                    try {
+                        sessionStorage.removeItem('lcp_saved_scroll_y');
+                        sessionStorage.removeItem('lcp_saved_brand');
+                        sessionStorage.removeItem('lcp_is_returning_from_product');
+                        const nextSlug = getStepSlug(nextStep);
+                        sessionStorage.removeItem('lcp_subcat_' + nextSlug);
+                    } catch (e) {}
+                    activateStep(currentActiveView, nextStep, false, 'all');
                     scrollToGuideCard();
                 });
             }
@@ -2545,10 +2557,19 @@
                 const pillsWrap = document.createElement('div');
                 pillsWrap.className = 'lcp-brand-pills';
 
+                // Ověříme, zda obnovujeme stav po návratu z detailu produktu
+                let activeBrand = 'all';
+                try {
+                    const savedBrand = sessionStorage.getItem('lcp_saved_brand');
+                    if (savedBrand && (savedBrand === 'all' || brandCounts.has(savedBrand))) {
+                        activeBrand = savedBrand;
+                    }
+                } catch (e) {}
+
                 // Tlačítko pro všechny značky
                 const allBtn = document.createElement('button');
                 allBtn.type = 'button';
-                allBtn.className = 'lcp-brand-pill is-active';
+                allBtn.className = 'lcp-brand-pill' + (activeBrand === 'all' ? ' is-active' : '');
                 allBtn.setAttribute('data-brand', 'all');
                 allBtn.innerHTML = `Všechny značky <span class="lcp-brand-count">${totalProducts}</span>`;
                 pillsWrap.appendChild(allBtn);
@@ -2563,7 +2584,7 @@
                 sortedBrands.forEach(b => {
                     const btn = document.createElement('button');
                     btn.type = 'button';
-                    btn.className = 'lcp-brand-pill';
+                    btn.className = 'lcp-brand-pill' + (activeBrand === b.id ? ' is-active' : '');
                     btn.setAttribute('data-brand', b.id);
                     btn.innerHTML = `${b.name} <span class="lcp-brand-count">${b.count}</span>`;
                     pillsWrap.appendChild(btn);
@@ -2572,13 +2593,26 @@
                 filterBar.appendChild(pillsWrap);
                 filterSlot.appendChild(filterBar);
 
+                // Nastavíme viditelnost produktů podle activeBrand
+                let visibleCount = 0;
+                productElements.forEach(p => {
+                    const pBrand = p.getAttribute('data-brand');
+                    const show = activeBrand === 'all' || pBrand === activeBrand;
+                    p.classList.toggle('lcp-brand-hidden', !show);
+                    if (show) visibleCount++;
+                });
+
                 // Hláška pro případ, že filtr nic nenajde
                 const emptyMsg = document.createElement('div');
                 emptyMsg.className = 'lcp-brand-empty-msg';
                 emptyMsg.textContent = 'Pro vybranou značku nebyly v tomto kroku nalezeny žádné produkty.';
+                emptyMsg.style.display = visibleCount === 0 ? 'block' : 'none';
                 filterSlot.appendChild(emptyMsg);
 
                 Array.from(pillsWrap.querySelectorAll('.lcp-brand-pill')).forEach(bindBrandPill);
+            } else {
+                // Pokud je jen 1 značka nebo méně, zajistíme, že jsou všechny produkty viditelné
+                productElements.forEach(p => p.classList.remove('lcp-brand-hidden'));
             }
 
             function bindBrandPill(pill) {
@@ -2609,6 +2643,11 @@
                     if (emptyMsg) {
                         emptyMsg.style.display = visibleCount === 0 ? 'block' : 'none';
                     }
+
+                    // Uložíme zvolenou značku, aby se zachovala při přechodu na produkt
+                    try {
+                        sessionStorage.setItem('lcp_saved_brand', targetBrand);
+                    } catch (e) {}
                 });
             }
         }
@@ -2629,6 +2668,7 @@
                     productsContainer.appendChild(filterSlot);
 
                     const clonedGrid = cached.grid.cloneNode(true);
+                    clonedGrid.querySelectorAll('.product.lcp-brand-hidden').forEach(p => p.classList.remove('lcp-brand-hidden'));
                     buildAndRenderBrandFilter(clonedGrid, cached.manufacturers, filterSlot);
 
                     productsContainer.appendChild(clonedGrid);
@@ -3019,6 +3059,25 @@
 
         let activeSubcatId = 'all';
 
+        // Pomocná funkce pro uložení stavu při odchodu na detail produktu
+        function saveProductExitState() {
+            try {
+                const y = window.pageYOffset || window.scrollY || document.documentElement.scrollTop || 0;
+                sessionStorage.setItem('lcp_saved_scroll_y', String(y));
+                sessionStorage.setItem('lcp_is_returning_from_product', '1');
+                if (window.location.hash) {
+                    sessionStorage.setItem('lcp_last_hash', window.location.hash);
+                }
+                if (productsContainer) {
+                    const activeBrandBtn = productsContainer.querySelector('.lcp-brand-pill.is-active');
+                    if (activeBrandBtn) {
+                        const b = activeBrandBtn.getAttribute('data-brand') || 'all';
+                        sessionStorage.setItem('lcp_saved_brand', b);
+                    }
+                }
+            } catch (err) {}
+        }
+
         // Pomocná funkce pro obnovu pozice scrollu po přechodu na produkt a zpět
         function checkAndRestoreScroll(isFinal = false) {
             try {
@@ -3033,39 +3092,29 @@
                             });
                         });
                     }
-                    if (isFinal) {
-                        setTimeout(() => {
-                            sessionStorage.removeItem('lcp_saved_scroll_y');
-                        }, 500);
-                    }
+                }
+                if (isFinal) {
+                    setTimeout(() => {
+                        sessionStorage.removeItem('lcp_saved_scroll_y');
+                        sessionStorage.removeItem('lcp_saved_brand');
+                        sessionStorage.removeItem('lcp_is_returning_from_product');
+                    }, 600);
                 }
             } catch (e) {}
         }
 
-        // Zaznamenání pozice scrollu při kliknutí na jakýkoliv produkt v mřížce
+        // Zaznamenání pozice scrollu a filtrů při kliknutí na jakýkoliv produkt v mřížce
         if (productsContainer) {
             productsContainer.addEventListener('click', (e) => {
                 const link = e.target.closest('a');
                 if (link && link.href && !link.href.startsWith('javascript:')) {
-                    try {
-                        const y = window.pageYOffset || window.scrollY || document.documentElement.scrollTop || 0;
-                        sessionStorage.setItem('lcp_saved_scroll_y', String(y));
-                        if (window.location.hash) {
-                            sessionStorage.setItem('lcp_last_hash', window.location.hash);
-                        }
-                    } catch (err) {}
+                    saveProductExitState();
                 }
             });
         }
 
         window.addEventListener('pagehide', () => {
-            try {
-                const y = window.pageYOffset || window.scrollY || document.documentElement.scrollTop || 0;
-                sessionStorage.setItem('lcp_saved_scroll_y', String(y));
-                if (window.location.hash) {
-                    sessionStorage.setItem('lcp_last_hash', window.location.hash);
-                }
-            } catch (err) {}
+            saveProductExitState();
         });
 
         function renderSubcategories(subcatConfig, preferredSubcatId = 'all', stepSlug = '') {
@@ -3166,6 +3215,8 @@
 
                     try {
                         sessionStorage.removeItem('lcp_saved_scroll_y');
+                        sessionStorage.removeItem('lcp_saved_brand');
+                        sessionStorage.removeItem('lcp_is_returning_from_product');
                         const currentSlug = stepSlug || getStepSlug(currentActiveStep);
                         sessionStorage.setItem('lcp_subcat_' + currentSlug, item.id);
                         const activeTabKey = (views.brow && views.brow.classList.contains('is-visible')) ? 'brow' : 'lash';
@@ -3193,9 +3244,13 @@
             const stepSlug = getStepSlug(step);
             const activeTabKey = (views.brow && views.brow.classList.contains('is-visible')) ? 'brow' : 'lash';
 
+            // Z sessionStorage obnovujeme zvolenou podkategorii VÝHRADNĚ při návratu z detailu produktu
             if (!preferredSubcatId) {
                 try {
-                    preferredSubcatId = sessionStorage.getItem('lcp_subcat_' + stepSlug);
+                    const isReturning = sessionStorage.getItem('lcp_is_returning_from_product') === '1' || sessionStorage.getItem('lcp_saved_scroll_y') !== null;
+                    if (isReturning) {
+                        preferredSubcatId = sessionStorage.getItem('lcp_subcat_' + stepSlug);
+                    }
                 } catch (e) {}
             }
 
@@ -3253,8 +3308,12 @@
                     e.preventDefault();
                     try {
                         sessionStorage.removeItem('lcp_saved_scroll_y');
+                        sessionStorage.removeItem('lcp_saved_brand');
+                        sessionStorage.removeItem('lcp_is_returning_from_product');
+                        const stepSlug = getStepSlug(step);
+                        sessionStorage.removeItem('lcp_subcat_' + stepSlug);
                     } catch (err) {}
-                    activateStep(view, step, false);
+                    activateStep(view, step, false, 'all');
                 });
             });
         }
@@ -3282,9 +3341,16 @@
                     ensureRoutineStructure(views[key]);
                     const activeStep = views[key].querySelector('.lcp-step.lcp-active') || views[key].querySelector('.lcp-step');
                     if (activeStep) {
+                        try {
+                            sessionStorage.removeItem('lcp_saved_scroll_y');
+                            sessionStorage.removeItem('lcp_saved_brand');
+                            sessionStorage.removeItem('lcp_is_returning_from_product');
+                            const stepSlug = getStepSlug(activeStep);
+                            sessionStorage.removeItem('lcp_subcat_' + stepSlug);
+                        } catch (err) {}
                         currentActiveIndex = Array.from(views[key].querySelectorAll('.lcp-step')).indexOf(activeStep);
                         requestAnimationFrame(() => {
-                            activateStep(views[key], activeStep, true);
+                            activateStep(views[key], activeStep, true, 'all');
                         });
                     }
                 }
@@ -3306,6 +3372,8 @@
                 const target = btn.getAttribute('data-target');
                 try {
                     sessionStorage.removeItem('lcp_saved_scroll_y');
+                    sessionStorage.removeItem('lcp_saved_brand');
+                    sessionStorage.removeItem('lcp_is_returning_from_product');
                 } catch (err) {}
                 if (target) switchTab(target, true);
             });
