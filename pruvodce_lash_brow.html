@@ -693,7 +693,7 @@
 
     .lcp-subcat-items.is-cards-grid {
         display: grid !important;
-        grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+        grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
         gap: 10px 10px !important;
     }
 
@@ -702,6 +702,139 @@
         flex-wrap: wrap !important;
         gap: 10px !important;
         align-items: center !important;
+    }
+
+    /* Promo banner na online kurz (Architektura natáček) */
+    .lcp-subcat-banner-slot {
+        width: 100%;
+        margin-top: 14px;
+    }
+
+    .lcp-subcat-banner {
+        background: linear-gradient(135deg, #fff7f8 0%, #ffeff2 50%, #ffe8ed 100%);
+        border: 1.5px solid #f8ccd4;
+        border-radius: 14px;
+        padding: 16px 20px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 20px;
+        box-shadow: 0 4px 18px rgba(235, 108, 125, 0.08);
+        box-sizing: border-box;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .lcp-subcat-banner::before {
+        content: '';
+        position: absolute;
+        top: -30px;
+        right: -30px;
+        width: 130px;
+        height: 130px;
+        background: radial-gradient(circle, rgba(235, 108, 125, 0.12) 0%, transparent 70%);
+        border-radius: 50%;
+        pointer-events: none;
+    }
+
+    .lcp-subcat-banner-left {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        min-width: 0;
+        flex: 1 1 auto;
+    }
+
+    .lcp-subcat-banner-icon {
+        width: 46px;
+        height: 46px;
+        border-radius: 12px;
+        background: #ffffff;
+        border: 1.5px solid #f9cad2;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #eb6c7d;
+        flex-shrink: 0;
+        box-shadow: 0 3px 10px rgba(235, 108, 125, 0.15);
+    }
+
+    .lcp-subcat-banner-icon svg {
+        width: 24px;
+        height: 24px;
+    }
+
+    .lcp-subcat-banner-text {
+        display: flex;
+        flex-direction: column;
+        gap: 3px;
+        min-width: 0;
+    }
+
+    .lcp-subcat-banner-badge {
+        font-family: 'Montserrat', Arial, sans-serif;
+        font-size: 10.5px;
+        font-weight: 800;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: #eb6c7d;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+    }
+
+    .lcp-subcat-banner-title {
+        font-family: 'Montserrat', Arial, sans-serif;
+        font-size: 15px;
+        font-weight: 700;
+        color: #2b2b2b;
+        line-height: 1.3;
+        margin: 0;
+    }
+
+    .lcp-subcat-banner-desc {
+        font-family: 'Montserrat', Arial, sans-serif;
+        font-size: 12.5px;
+        color: #666666;
+        line-height: 1.4;
+        margin: 0;
+    }
+
+    .lcp-subcat-banner-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background: linear-gradient(135deg, #f78d9b 0%, #eb6c7d 100%);
+        color: #ffffff !important;
+        font-family: 'Montserrat', Arial, sans-serif;
+        font-size: 13px;
+        font-weight: 700;
+        padding: 11px 22px;
+        border-radius: 50px;
+        text-decoration: none !important;
+        white-space: nowrap;
+        flex-shrink: 0;
+        box-shadow: 0 4px 14px rgba(235, 108, 125, 0.32);
+        transition: all 0.22s cubic-bezier(0.25, 1, 0.5, 1);
+        cursor: pointer;
+    }
+
+    .lcp-subcat-banner-btn:hover,
+    .lcp-subcat-banner-btn:focus {
+        background: linear-gradient(135deg, #f57b8c 0%, #e8596c 100%);
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(235, 108, 125, 0.42);
+        color: #ffffff !important;
+        outline: none;
+    }
+
+    .lcp-subcat-banner-btn svg {
+        transition: transform 0.2s ease;
+        flex-shrink: 0;
+    }
+
+    .lcp-subcat-banner-btn:hover svg {
+        transform: translateX(3px);
     }
 
     /* Styl pilulek (pro Lepení řas) */
@@ -834,7 +967,7 @@
         color: #eb6c7d;
     }
 
-    @media (max-width: 1080px) {
+    @media (max-width: 860px) {
         .lcp-subcat-items.is-cards-grid {
             grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
             gap: 10px 10px !important;
@@ -846,6 +979,44 @@
 
         .lcp-subcat-card .lcp-subcat-label {
             font-size: 12px;
+        }
+
+        .lcp-subcat-banner {
+            flex-direction: column;
+            align-items: stretch;
+            padding: 15px 16px;
+            gap: 14px;
+        }
+
+        .lcp-subcat-banner-left {
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        .lcp-subcat-banner-icon {
+            width: 40px;
+            height: 40px;
+        }
+
+        .lcp-subcat-banner-icon svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        .lcp-subcat-banner-title {
+            font-size: 14px;
+        }
+
+        .lcp-subcat-banner-desc {
+            font-size: 12px;
+        }
+
+        .lcp-subcat-banner-btn {
+            justify-content: center;
+            width: 100%;
+            box-sizing: border-box;
+            padding: 11px 16px;
+            font-size: 12.5px;
         }
     }
 
@@ -1671,6 +1842,7 @@
         <div class="lcp-subcat-items" id="lcp-subcat-items">
             <!-- Tlačítka podkategorií se dynamicky vloží sem -->
         </div>
+        <div id="lcp-subcat-banner-slot" class="lcp-subcat-banner-slot" style="display: none;"></div>
     </div>
 </div>
 
@@ -1697,6 +1869,7 @@
         const subcatItemsWrap = document.getElementById('lcp-subcat-items');
         const subcatTitleText = document.getElementById('lcp-subcat-title-text');
         const subcatHeaderCta = document.getElementById('lcp-subcat-header-cta');
+        const subcatBannerSlot = document.getElementById('lcp-subcat-banner-slot');
 
         const tabButtons = Array.from(card.querySelectorAll('.lcp-guide-tab'));
         const views = {
@@ -2651,9 +2824,12 @@
                 stepNames: ['Natáčky', 'natacky'],
                 type: 'cards', // Zobrazení jako karty s ikonou/obrázkem tvaru
                 cta: {
-                    text: 'Online kurz: Architektura natáček',
+                    badge: 'Online kurz pro profesionály',
+                    title: 'Nevyznáte se v natáčkách?',
+                    description: 'Připravili jsme si pro vás online kurz jak vybrat správnou natáčku a dosáhnout dokonalého výsledku.',
+                    buttonText: 'Přejít na online kurz',
                     url: 'https://www.onlinekosmetickekurzy.cz/kurzy/architektura-natacek-na-lash-lifting/',
-                    title: 'Přejít na online kurz Architektura natáček na onlinekosmetickekurzy.cz'
+                    titleAttr: 'Přejít na online kurz Architektura natáček na onlinekosmetickekurzy.cz'
                 },
                 items: [
                     {
@@ -2696,6 +2872,12 @@
                         id: 'korejske',
                         name: 'Korejské',
                         url: 'https://www.depilujeme.cz/natacky-lash-lifting-asijske/',
+                        icon: ''
+                    },
+                    {
+                        id: 'relift',
+                        name: 'Re-Lift',
+                        url: 'https://www.depilujeme.cz/natacky-lash-lifting-relift/',
                         icon: ''
                     },
                     {
@@ -2807,6 +2989,10 @@
                     return `<svg viewBox="5 1 12 22" fill="currentColor">
                         <path d="M7 2 C9 6 10 12 11 16 L15 20 C15.5 21.5 13.5 22 11 22 H7 Z"></path>
                     </svg>`;
+                case 'relift':
+                    return `<svg viewBox="5 1 12 22" fill="currentColor">
+                        <path d="M7 2 C11 4 14 8 14 13 C14 18 10 21 7 22 Z"></path>
+                    </svg>`;
                 case 'spodni-rasy':
                     return `<svg viewBox="6 3 9 18" fill="currentColor">
                         <path d="M8 5 C13 9 13 15 8 19 Z"></path>
@@ -2894,24 +3080,51 @@
             }
 
             if (subcatHeaderCta) {
+                subcatHeaderCta.innerHTML = '';
+                subcatHeaderCta.style.display = 'none';
+            }
+
+            if (subcatBannerSlot) {
                 if (subcatConfig.cta && subcatConfig.cta.url) {
-                    const ctaTitle = subcatConfig.cta.title || `Přejít na kurz ${subcatConfig.cta.text} (onlinekosmetickekurzy.cz)`;
-                    subcatHeaderCta.innerHTML = `
-                    <a href="${subcatConfig.cta.url}" target="_blank" rel="noopener" class="lcp-subcat-cta-header-btn" title="${ctaTitle}" aria-label="${ctaTitle}">
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
-                            <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
-                        </svg>
-                        <span>${subcatConfig.cta.text}</span>
-                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                            <line x1="5" y1="12" x2="19" y2="12"></line>
-                            <polyline points="12 5 19 12 12 19"></polyline>
-                        </svg>
-                    </a>`;
-                    subcatHeaderCta.style.display = 'block';
+                    const cta = subcatConfig.cta;
+                    const ctaTitle = cta.titleAttr || cta.title || 'Přejít na online kurz Architektura natáček na onlinekosmetickekurzy.cz';
+                    const badgeText = cta.badge || 'Online kurz pro profesionály';
+                    const titleText = cta.title || 'Nevyznáte se v natáčkách?';
+                    const descText = cta.description || '';
+                    const btnText = cta.buttonText || cta.text || 'Zobrazit online kurz';
+
+                    subcatBannerSlot.innerHTML = `
+                    <div class="lcp-subcat-banner">
+                        <div class="lcp-subcat-banner-left">
+                            <div class="lcp-subcat-banner-icon" aria-hidden="true">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M22 10v6M2 10l10-5 10 5-10 5z"></path>
+                                    <path d="M6 12v5c3 3 9 3 12 0v-5"></path>
+                                </svg>
+                            </div>
+                            <div class="lcp-subcat-banner-text">
+                                <span class="lcp-subcat-banner-badge">
+                                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                                    </svg>
+                                    ${badgeText}
+                                </span>
+                                <h4 class="lcp-subcat-banner-title">${titleText}</h4>
+                                ${descText ? `<p class="lcp-subcat-banner-desc">${descText}</p>` : ''}
+                            </div>
+                        </div>
+                        <a href="${cta.url}" target="_blank" rel="noopener" class="lcp-subcat-banner-btn" title="${ctaTitle}" aria-label="${ctaTitle}">
+                            <span>${btnText}</span>
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                <line x1="5" y1="12" x2="19" y2="12"></line>
+                                <polyline points="12 5 19 12 12 19"></polyline>
+                            </svg>
+                        </a>
+                    </div>`;
+                    subcatBannerSlot.style.display = 'block';
                 } else {
-                    subcatHeaderCta.innerHTML = '';
-                    subcatHeaderCta.style.display = 'none';
+                    subcatBannerSlot.innerHTML = '';
+                    subcatBannerSlot.style.display = 'none';
                 }
             }
 
