@@ -143,7 +143,6 @@
         margin: 2px 0 10px;
         scrollbar-width: thin;
         scrollbar-color: #fbd6dc #fff9fa;
-        scroll-behavior: smooth;
         -webkit-overflow-scrolling: touch;
         cursor: grab;
         user-select: none;
@@ -151,7 +150,6 @@
 
     #lcp-osa .lcp-osa-scroll.is-dragging {
         cursor: grabbing;
-        scroll-behavior: auto;
     }
 
     #lcp-osa .lcp-osa-scroll::-webkit-scrollbar {
@@ -168,45 +166,20 @@
         border-radius: 10px;
     }
 
-    #lcp-osa .lcp-routine-track {
-        position: relative;
-        min-width: max-content;
-        width: 100%;
-    }
-
-    #lcp-osa .lcp-routine-line {
-        position: absolute;
-        bottom: 11px;
-        height: 4px;
-        background: #fcdade;
-        border-radius: 20px;
-        z-index: 1;
-        pointer-events: none;
-    }
-
-    #lcp-osa .lcp-routine-line-fill {
-        position: absolute;
-        inset: 0 auto 0 0;
-        width: 0%;
-        background: linear-gradient(90deg, #f7aab3, #eb6c7d);
-        border-radius: 20px;
-        transition: width .3s ease;
-        z-index: 2;
-    }
-
     #lcp-osa .lcp-routine-steps {
         position: relative;
         z-index: 3;
         display: flex;
         align-items: flex-end;
+        min-width: max-content;
         width: 100%;
     }
 
     #lcp-osa .lcp-step {
         position: relative;
-        flex: 0 0 90px;
-        width: 90px;
-        min-width: 90px;
+        flex: 0 0 96px;
+        width: 96px;
+        min-width: 96px;
         padding: 6px 2px 28px;
         text-align: center;
         font-size: 11px;
@@ -216,6 +189,25 @@
         white-space: normal;
         cursor: inherit;
         user-select: none;
+    }
+
+    #lcp-osa .lcp-step:not(:first-child)::before {
+        content: "";
+        position: absolute !important;
+        bottom: 10.5px !important;
+        left: -50% !important;
+        width: 100% !important;
+        height: 4px !important;
+        background: #fcdade !important;
+        z-index: 1 !important;
+        pointer-events: none !important;
+        display: block !important;
+    }
+
+    #lcp-osa .lcp-step.lcp-completed:not(:first-child)::before,
+    #lcp-osa .lcp-step.lcp-active:not(:first-child)::before {
+        background: linear-gradient(90deg, #f399a5, #eb6c7d) !important;
+        z-index: 2 !important;
     }
 
     #lcp-osa .lcp-step::after {
@@ -249,7 +241,6 @@
     }
 
     #lcp-osa .lcp-step.lcp-active {
-        transform: translateY(-2px);
         color: #eb6c7d;
         font-weight: 700;
     }
@@ -404,7 +395,6 @@
     <div class="lcp-osa-view is-visible" id="view-lash">
         <div class="lcp-osa-scroll">
             <div class="lcp-routine-track">
-                <div class="lcp-routine-line"><div class="lcp-routine-line-fill"></div></div>
                 <div class="lcp-routine-steps">
                     <div class="lcp-step{{LASH_ODLICENI}}" data-s="odliceni">Odlíčení</div>
                     <div class="lcp-step{{LASH_PODLOZKY}}" data-s="podlozky-pod-oci">Podložky<br>pod oči</div>
@@ -431,7 +421,6 @@
     <div class="lcp-osa-view" id="view-brow">
         <div class="lcp-osa-scroll">
             <div class="lcp-routine-track">
-                <div class="lcp-routine-line"><div class="lcp-routine-line-fill"></div></div>
                 <div class="lcp-routine-steps">
                     <div class="lcp-step{{BROW_OCISTENI}}" data-s="ocisteni">Očištění</div>
                     <div class="lcp-step{{BROW_ODMASTENI}}" data-s="odmasteni">Odmaštění</div>
@@ -569,28 +558,35 @@
             on(sc, 'mousemove', function(e) { if (down) { e.preventDefault(); sc.scrollLeft = sl - (e.pageX - sc.offsetLeft - sx) * 1.2; } });
         }
 
-        function syncView(v, smooth) {
-            var line = q(v, '.lcp-routine-line'), fill = q(v, '.lcp-routine-line-fill'), sc = q(v, '.lcp-osa-scroll'), steps = qa(v, '.lcp-step');
-            if (!line || !fill || steps.length < 2) return;
+        function syncView(v) {
+            if (!v) return;
+            var sc = q(v, '.lcp-osa-scroll'), steps = qa(v, '.lcp-step');
+            if (!sc || steps.length < 2) return;
             var act = steps.filter(function(s) { return s.classList.contains('lcp-active'); });
-            var lAct = act[act.length - 1], fc = mid(steps[0]), tw = Math.max(0, mid(steps[steps.length - 1]) - fc);
-            line.style.left = fc + 'px';
-            line.style.width = tw + 'px';
-            fill.style.width = (!lAct || !tw) ? '0%' : Math.min(100, Math.max(0, ((mid(lAct) - fc) / tw) * 100)) + '%';
-            if (sc) sc.scrollTo({ left: act.length ? Math.max(0, (mid(act[0]) + mid(lAct) - sc.clientWidth) / 2) : 0, behavior: smooth ? 'smooth' : 'auto' });
+            var target = 0;
+            if (act.length) {
+                var m1 = act[0].offsetLeft + act[0].offsetWidth / 2;
+                var m2 = act[act.length - 1].offsetLeft + act[act.length - 1].offsetWidth / 2;
+                target = Math.max(0, (m1 + m2 - sc.clientWidth) / 2);
+            }
+            sc.scrollLeft = target;
         }
 
-        function switchTab(k, smooth) {
+        function switchTab(k) {
             tabs.forEach(function(b) {
                 var onTab = b.getAttribute('data-target') === k;
                 b.classList.toggle('is-active', onTab);
                 b.setAttribute('aria-selected', onTab ? 'true' : 'false');
             });
             ['lash', 'brow'].forEach(function(vk) {
-                if (!views[vk]) return;
-                views[vk].classList.toggle('is-visible', vk === k);
-                if (vk === k) requestAnimationFrame(function() { syncView(views[vk], smooth); });
+                if (views[vk]) views[vk].classList.toggle('is-visible', vk === k);
             });
+            if (views[k]) {
+                syncView(views[k]);
+                requestAnimationFrame(function() { syncView(views[k]); });
+                setTimeout(function() { syncView(views[k]); }, 60);
+                setTimeout(function() { syncView(views[k]); }, 200);
+            }
             var act = qa(views[k], '.lcp-step.lcp-active'), pName = k === 'brow' ? 'Laminace obočí' : 'Lash Lifting';
             if (act.length) {
                 var names = act.map(function(s) { return s.getAttribute('data-n') || s.innerText.replace(/\s+/g, ' ').trim(); });
@@ -609,19 +605,20 @@
         tabs.forEach(function(b) {
             var t = b.getAttribute('data-target');
             if ((t === 'lash' && hasLA) || (t === 'brow' && hasBA)) b.classList.add('has-step');
-            on(b, 'click', function() { if (t) switchTab(t, false); });
+            on(b, 'click', function() { if (t) switchTab(t); });
         });
 
         var initKey = (!hasLA && hasBA) ? 'brow' : 'lash';
-        switchTab(initKey, false);
+        switchTab(initKey);
 
         function refresh() {
             var ab = q(card, '.lcp-osa-tab.is-active');
             var k = ab ? (ab.getAttribute('data-target') || initKey) : initKey;
-            syncView(views[k], false);
+            syncView(views[k]);
         }
         requestAnimationFrame(refresh);
-        setTimeout(refresh, 150);
+        setTimeout(refresh, 100);
+        setTimeout(refresh, 300);
         on(window, 'load', refresh);
         on(window, 'resize', refresh);
         on(document, 'ShoptetDOMPageContentLoaded', refresh);
